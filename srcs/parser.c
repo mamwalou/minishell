@@ -1,4 +1,5 @@
 #include "../includes/minishell.h"
+#include <stdio.h>
 
 static int		find_occur(const char *s, char c)
 {
@@ -49,8 +50,6 @@ int 		access_check(char *pline, char **bin)
 		return (0);
 }
 
-
-
 void 		free_d(char **dtab, int lenght)
 {
 	int i;
@@ -58,28 +57,36 @@ void 		free_d(char **dtab, int lenght)
 	i = 0;
 	while (i < lenght)
 	{
-		ft_putendl(dtab[i]);
+		free(dtab[i]);
 		i++;
 	}
+	free(dtab);
 }
 
 void 		parser(char **environ, char *line, t_data *data)
 {
 	char		**bin;
 	char		**pline;
+	char		*tmp;
 	int			lenght;
 	int			lenght_bin;
 
 
+
 	lenght_bin = ft_strsplit(&bin ,search_env(environ, "PATH"), ':');
 	lenght = ft_strsplit(&pline, line, ' ');
-/*	while (*pline)
+	if (*pline != NULL)
 	{
-		if ((access_check(*pline, bin)) > 0)
+		tmp = *pline;
+		while (tmp)
+		{
+			if ((access_check(tmp, bin)) > 0)
+				;
+			if ((filters(tmp, data)) > 0)
 			;
-		if ((filters(*pline, data)) > 0)
-			;
-		pline++;
-	}*/
+			tmp++;
+		}
+	}
 	free_d(bin, lenght_bin);
+	free_d(pline, lenght);
 }

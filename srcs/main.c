@@ -6,7 +6,7 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/05/22 21:25:13 by salomon          ###   ########.fr       */
+/*   Updated: 2016/06/01 18:49:53 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int					main(int argc, char **argv, char **environ)
 {
 	char		*cmd;
 
-	if (*environ == NULL)
+	/*if (*environ == NULL)
 	{
 		if ((access("/usr/bin", X_OK)) != -1)
 		{
 			if ((set_env(&environ, "PATH", "/usr/bin")) == -1)
 				ft_print_error("Could'nt allocated");
 		}
-	}
+	}*/
 	prompt(environ);
 	while  (get_next_line(0, &cmd) == 1 && ft_strcmp(cmd, "exit") != 0)
 	{
