@@ -6,7 +6,7 @@
 #    By: salomon <salomon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/14 14:10:26 by sbeline           #+#    #+#              #
-#    Updated: 2016/05/15 02:18:33 by salomon          ###   ########.fr        #
+#    Updated: 2016/06/03 03:08:53 by salomon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC += ft_nbsize.c ft_putwchar.c ft_putwchar_fd.c ft_putwstr.c
 SRC += ft_putwstr_fd.c ft_lenghtwchar.c ft_lenghtstrwchar.c
 SRC += ft_printunint.c ft_lenghtunint.c
 SRC += get_next_line.c ft_stradd.c ft_strmove.c
-SRC += ft_findstr.c
+SRC += ft_findstr.c ft_strtrijoin.c ft_strndup.c
 
 DEL = rm -f
 
