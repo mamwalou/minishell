@@ -6,7 +6,7 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/05/18 23:05:34 by salomon          ###   ########.fr       */
+/*   Updated: 2016/06/08 01:44:40 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,28 @@
 
 typedef struct				s_data
 {
-	char					*cmd;
-	char					*opt;
-	char					operation;
 	int						index;
+	char					*cmd;
+	char					**option;
+	char					*operation;
 	struct s_data 			*left;
 	struct s_data			*right;
 }							t_data;
 
+void		ft_print_error(char *error, const char *str);
+					/*builltin*/
+int			my_setenv(t_llist **env,char **environ, const char *value);
+char		**my_env(t_llist *env);
+					/*exect_it*/
+void 		exec_cmd(t_llist *env, char *line);
 
-int			my_setenv(char ***environ, const char *env, const char *value);
-char		*search_env(char **environ, const char *value);
-void 		exec_cmd(char **environ, char *line);
-int			do_bulltin(char *line, char **environ);
-void 		parser(char **environ, char *line, t_data *data);
+					/*lexer parser DATA*/
+int			parser_data(t_llist *env, char **line, t_data **data);
+t_data		*init_data(t_llist *env, char *line);
+char		*search_env(t_llist *env, const char *value);
+void 		free_d(char **dtab, int lenght);
+
+char		*is_bulltin(char *cmd);
+char		*data_filters(char *line);
+char		*bin_checkout(char *line, t_llist *env);
 #endif
