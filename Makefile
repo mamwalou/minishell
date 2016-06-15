@@ -3,12 +3,12 @@ SRC_NAME = main.c \
 			exec_cmd.c \
 			my_setenv.c \
 			my_env.c \
-			parser.c \
-			bulltin.c
-
+			lexer_data.c \
+			data.c \
+			parser.c
 
 INC_PATH = ./includes/
-SRC_PATH = ./srcs/
+SRC_PATH = ./srcs/*/
 OBJ_PATH = ./obj/
 LIB_PATH = ./libft/
 LIB_NAME = libft.a
