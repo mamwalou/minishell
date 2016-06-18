@@ -5,6 +5,7 @@ SRC_NAME = main.c \
 			my_env.c \
 			lexer_data.c \
 			data.c \
+			termcaps.c \
 			parser.c
 
 INC_PATH = ./includes/
@@ -23,7 +24,7 @@ INC = $(addprefix -I,$(INC_PATH))
 all:$(NAME)
 
 $(NAME): $(OBJ) libf
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) $(INC) -o $@
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) $(INC) -lncurses -o $@
 
 $(OBJ_PATH)%.o:$(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
