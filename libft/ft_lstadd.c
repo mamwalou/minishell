@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbeline <sbeline@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/14 13:38:39 by sbeline           #+#    #+#             */
-/*   Updated: 2015/10/02 20:23:31 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/06/08 00:44:10 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void		ft_lstadd(t_llist **alst, t_llist *n)
 		while (ptr->next != NULL)
 			ptr = ptr->next;
 		ptr->next = n;
+		ptr->next->maillon_nb = ptr->maillon_nb + 1;
 	}
 }

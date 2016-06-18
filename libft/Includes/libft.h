@@ -6,7 +6,7 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 17:06:24 by sbeline           #+#    #+#             */
-/*   Updated: 2016/06/03 03:08:57 by salomon          ###   ########.fr       */
+/*   Updated: 2016/06/17 18:58:54 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strnjoin(char *s1, char *s2, int begin,int end);
 char				*ft_strtrim(char const *s);
-int					ft_strsplit(char ***dst,char const *s, char c);
+int					ft_strsplit(char ***dst, char const *s, int *t);
 int					ft_strisdigit(char *str);
 int					get_next_line(int fd, char **line);
 
