@@ -19,9 +19,17 @@ int		parser_data(t_llist *env, char **line, t_data **data)
 	while (*line)
 	{
 		if (*data == NULL)
+		{
 			*data = init_data(env, *line);
-		if (!(*data)->cmd)
-			return (-1);
+			if (!(*data)->cmd)
+				return (-1);
+		}
+		else
+		{
+			if ((data_filters(*line)) > 0)
+				;
+			((*data)->option) = push_option(*line, (*data)->option);
+		}
 		line++;
 	}
 	return(1);

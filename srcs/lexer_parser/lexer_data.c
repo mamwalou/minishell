@@ -6,13 +6,13 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/06/08 00:44:16 by salomon          ###   ########.fr       */
+/*   Updated: 2016/06/16 16:35:08 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char		*data_filters(char *line)
+int		data_filters(char *line)
 {
 	char		*tab[8];
 	int			i;
@@ -29,10 +29,10 @@ char		*data_filters(char *line)
 	while (i < 8)
 	{
 		if (!ft_strcmp(tab[i], line))
-			return (tab[i]);
+			return (1);
 		i++;
 	}
-	return (NULL);
+	return (-1);
 }
 
 static int		data_cmd(char *path, char *line, char **cmd)
@@ -61,10 +61,10 @@ char			*bin_checkout(char *line, t_llist *env)
 	char		*cpy;
 	int			lenght_bin;
 	int			i;
-
+	int			tab[]= {':',0};
 	i = 0;
 	cpy = NULL;
-	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), ':');
+	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), tab);
 	while (i < lenght_bin)
 	{
 		if ((access(ft_strtrijoin(bin[i], "/", line), X_OK)) == 0)
