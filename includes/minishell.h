@@ -6,7 +6,7 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/06/08 01:44:40 by salomon          ###   ########.fr       */
+/*   Updated: 2016/06/17 18:13:00 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/Includes/libft.h"
+# include "termcaps/termcaps.h"
 # include <unistd.h>
 
 typedef struct				s_data
@@ -39,7 +40,9 @@ t_data		*init_data(t_llist *env, char *line);
 char		*search_env(t_llist *env, const char *value);
 void 		free_d(char **dtab, int lenght);
 
+char		**push_option(char *opt, char **save);
 char		*is_bulltin(char *cmd);
-char		*data_filters(char *line);
 char		*bin_checkout(char *line, t_llist *env);
+int			data_filters(char *line);
+
 #endif
