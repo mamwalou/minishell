@@ -6,7 +6,7 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/06/17 18:17:38 by salomon          ###   ########.fr       */
+/*   Updated: 2016/06/20 16:46:40 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int					main(int argc, char **argv, char **environ)
 	ctrl = 0;
 	while (ctrl == 0)
 	{
-		termcaps(env);
-		/*
+		if ((termcaps(env, &cmd)) == -1)
+			return (-1);
 		if (get_next_line(0, &cmd) == 1)
 			exec_cmd(env, cmd);
 		my_setenv(&env, environ, NULL);
-		prompt(env);*/
+		prompt(env);
 	}
 	return (0);
 }
