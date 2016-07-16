@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/06/16 16:44:47 by salomon          ###   ########.fr       */
+/*   Updated: 2016/07/16 14:50:05 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void 		exect_it(t_data *data, t_llist *env)
 	father = fork();
 	if (father > 0)
 	{
-		wait();
+		wait(&father);
 		return ;
 	}
 	if (father == 0)
 		execve(data->cmd, data->option, NULL);
+		
 }
 
 
@@ -32,10 +33,10 @@ void 		exec_cmd(t_llist *env, char *line)
 	t_data	*data;
 	char	**pline;
 	int		lenght;
- 	int		tab[] = {9, 32, 0};
+	int 	tableau[3] = {9, 32, 0};
 
 	data = NULL;
-	lenght = ft_strsplit(&pline, line, tab);
+	lenght = ft_strsplit(&pline, line, tableau);
 	if (lenght > 0)
 	{
 		if ((parser_data(env, pline, &data)) == -1)

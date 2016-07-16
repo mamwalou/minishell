@@ -38,11 +38,11 @@ t_data			*init_data(t_llist *env, char *line)
 	int			ctrl;
 
 	data = NULL;
-	data->left == NULL;
-	data->right == NULL;
-	data->cmd == NULL;
-	data->operation == NULL;
-	data->option == NULL;
+	data->left = NULL;
+	data->right = NULL;
+	data->cmd = NULL;
+	data->operation = NULL;
+	data->option = NULL;
 	data = (t_data*)ft_memalloc(sizeof(t_data));
 	if ((data->cmd = is_bulltin(line)) != NULL)
 		return (data);

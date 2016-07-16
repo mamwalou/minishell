@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/06/16 16:35:08 by salomon          ###   ########.fr       */
+/*   Updated: 2016/07/16 16:12:50 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int		data_filters(char *line)
 {
-	char		*tab[8];
+	char		*tableau[8];
 	int			i;
 
-	tab[0] = ">";
-	tab[1] = "<";
-	tab[2] = ">&";
-	tab[3] = ">!";
-	tab[4] = ">!&";
-	tab[5] = "|";
-	tab[6] = ">>";
-	tab[7] = ">>&";
+	tableau[0] = ">";
+	tableau[1] = "<";
+	tableau[2] = ">&";
+	tableau[3] = ">!";
+	tableau[4] = ">!&";
+	tableau[5] = "|";
+	tableau[6] = ">>";
+	tableau[7] = ">>&";
 	i = 0;
 	while (i < 8)
 	{
-		if (!ft_strcmp(tab[i], line))
+		if (!ft_strcmp(tableau[i], line))
 			return (1);
 		i++;
 	}
@@ -61,10 +61,10 @@ char			*bin_checkout(char *line, t_llist *env)
 	char		*cpy;
 	int			lenght_bin;
 	int			i;
-	int			tab[]= {':',0};
+	int			tableau[]= {':',0};
 	i = 0;
 	cpy = NULL;
-	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), tab);
+	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), tableau);
 	while (i < lenght_bin)
 	{
 		if ((access(ft_strtrijoin(bin[i], "/", line), X_OK)) == 0)

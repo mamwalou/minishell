@@ -32,6 +32,6 @@ char			**my_env(t_llist *env)
 		count++;
 		ptr = ptr->next;
 	}
-	ret[count] = '\0';
+	ret[count] = "\0";
 	return (ret);
 }
