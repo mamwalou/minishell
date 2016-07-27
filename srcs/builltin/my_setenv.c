@@ -38,3 +38,14 @@ int		my_setenv(t_llist **env,char **environ, const char *value)
 		ft_lstadd(env, ft_lstnew(value, ft_strlen(value)));
 	return (-1);
 }
+
+int			ft_setenv(t_data *data, t_llist *env)
+{
+	ft_putendl(*(data)->option);
+	return(0);
+}
+
+int			ft_unsetenv(t_data *data, t_llist *env)
+{
+	return(0);
+}

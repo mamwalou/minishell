@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/16 16:12:50 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/07/27 19:18:40 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ int		data_filters(char *line)
 	return (-1);
 }
 
-static int		data_cmd(char *path, char *line, char **cmd)
+int			my_ctrl(int test)
 {
-	char	*acces;
-	int		ctrl;
-
-
-
+	if (test == '-'
+		|| test == ';'
+		|| test == '<'
+		|| test == '>'
+	 	|| test == '&'
+		|| test == '!')
+		return (1);
 	return (0);
 }
 

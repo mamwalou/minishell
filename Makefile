@@ -5,6 +5,9 @@ SRC_NAME = main.c \
 			my_env.c \
 			lexer_data.c \
 			data.c \
+			parsing_line.c \
+			ft_cd.c \
+			termcaps_checker.c \
 			termcaps.c \
 			parser.c
 

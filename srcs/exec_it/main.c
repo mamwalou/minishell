@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
+/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/16 17:55:43 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/07/18 02:36:05 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,17 @@ int					main(int argc, char **argv, char **environ)
 	int			ctrl;
 
 	env = NULL;
-	line = NULL;
 	ctrl = 0;
 	while (ctrl == 0)
 	{
+		line = NULL;
 		my_setenv(&env, environ, NULL);
 		prompt(env);
 		if ((termcaps(env, &line)) == -1)
 			return (-1);
-		/*if (get_next_line(0, &line) == 1)
-			exec_cmd(env, line);*/
+		if (line)
+			exec_cmd(env, line);
+		free(line);
 
 	}
 	return (0);

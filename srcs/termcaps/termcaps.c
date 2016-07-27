@@ -6,11 +6,12 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/16 18:00:17 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/07/27 19:40:17 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
+#include "../../includes/minishell.h"
 
 void		init_term(struct termios *term, char *name_term)
 {
@@ -44,35 +45,36 @@ void 		termcaps_exit(const char *exit_msg, struct termios *term)
 	exit (-1);
 }
 
-int			ctrl_input(struct termios *term, char *name_term, char **line)
-{
-	char	buffer[3];
-	char	*tmp_line;
 
-	while (buffer[0] != RETURN)
-	{
-		ft_bzero(buffer, 3);
-		init_term(term, name_term);
-		read(0, buffer, 3);
-		if (buffer[0] == 4)
-		{
-			termcaps_exit("close",term);
-			return (-1);
-		}
-		cpy_on_line(buffer[0]);
-		ft_putchar(buffer[0]);
-	}
-	return (1);
-}
 
 int			termcaps(t_llist *env, char **line)
 {
 	struct termios		term;
 	char				*name_term;
+	char				tmp;
+	char				buffer[3];
 
 	if ((name_term = search_env(env, "TERM")) == NULL)
 		return (-1);
-	if (ctrl_input(&term, name_term, line) == -1)
-		return (-1);
+	while (buffer[0] != RETURN)
+	{
+		ft_bzero(buffer, 3);
+		init_term(&term, name_term);
+		read(0, buffer, 3);
+		if (buffer[0] == CTRL_D)
+			termcaps_exit("close", &term);
+		else if (buffer[0] == DELETE)
+		{
+			ft_putendl("in");
+			bring_back_shell(&term);
+			*line = depushline(*line);
+		}
+		if ((ft_isalpha(buffer[0])) == 1 || (my_ctrl(buffer[0])) == 1)
+			*line = push_line(buffer[0], *line);
+		else
+			*line = termcap_check(buffer[0], *line);
+		ft_putchar(buffer[0]);
+	}
+	bring_back_shell(&term);
 	return (0);
 }

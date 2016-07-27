@@ -35,3 +35,16 @@ char			**my_env(t_llist *env)
 	ret[count] = "\0";
 	return (ret);
 }
+
+int		ft_env(t_data *data, t_llist *env)
+{
+	t_llist *ptr;
+
+	ptr = env;
+	while (ptr)
+	{
+		ft_putendl(ptr->content);
+		ptr = ptr->next;
+	}
+	return (0);
+}

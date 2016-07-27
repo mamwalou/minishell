@@ -3,18 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
+/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/16 14:50:05 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/07/18 03:01:03 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void 		exect_it(t_data *data, t_llist *env)
+static const t_built	g_builtin[NB_BUILT] =
 {
-	pid_t	father;
+	{"cd", ft_cd},
+	{"env", ft_env},
+	{"setenv", ft_setenv},
+	{"unsetenv", ft_unsetenv},
+};
+
+void 					exect_it(t_data *data, t_llist *env)
+{
+	pid_t				father;
 
 	father = fork();
 	if (father > 0)
@@ -24,9 +32,27 @@ void 		exect_it(t_data *data, t_llist *env)
 	}
 	if (father == 0)
 		execve(data->cmd, data->option, NULL);
-		
 }
 
+int			exec_parser(t_data *data, t_llist *env)
+{
+	int		i;
+	char 	*tmp;
+
+	i = 0;
+	if ((tmp = is_bulltin(data->cmd)) != NULL)
+	{
+		while (g_builtin[i++].str)
+		{
+			if (!ft_strcmp(g_builtin[i].str, tmp))
+				return (g_builtin[i].f(data, env));
+		}
+		free(tmp);
+	}
+	else
+		exect_it(data, env);
+	return (1);
+}
 
 void 		exec_cmd(t_llist *env, char *line)
 {
@@ -42,7 +68,7 @@ void 		exec_cmd(t_llist *env, char *line)
 		if ((parser_data(env, pline, &data)) == -1)
 			ft_print_error(pline[0], ": command not found");
 		else
-			exect_it(data, env);
+			exec_parser(data, env);
 	}
 	free_d(pline, lenght);
 }
