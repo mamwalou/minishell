@@ -13,7 +13,7 @@
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
-void		init_term(struct termios *term, char *name_term)
+void		init_term(struct termios *term, char *name_term, t_window *data)
 {
 	if (tgetent(NULL, name_term) == ERR)
 		return ;
@@ -22,6 +22,8 @@ void		init_term(struct termios *term, char *name_term)
 	term->c_lflag &= ~(ICANON|ECHO|ISIG);
 	term->c_cc[VMIN] = 0;
 	term->c_cc[VTIME] = 0;
+	data->lenght = tgetnum("li");
+	data->column = tgetnum("co");
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return ;
 
@@ -50,29 +52,26 @@ void 		termcaps_exit(const char *exit_msg, struct termios *term)
 int			termcaps(t_llist *env, char **line)
 {
 	struct termios		term;
+	t_window			win;
 	char				*name_term;
 	char				tmp;
 	char				buffer[3];
 
 	if ((name_term = search_env(env, "TERM")) == NULL)
 		return (-1);
+	win.lineshell = 0;
 	while (buffer[0] != RETURN)
 	{
 		ft_bzero(buffer, 3);
-		init_term(&term, name_term);
+		init_term(&term, name_term, &win);
 		read(0, buffer, 3);
 		if (buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
-		else if (buffer[0] == DELETE)
-		{
-			ft_putendl("in");
-			bring_back_shell(&term);
-			*line = depushline(*line);
-		}
 		if ((ft_isalpha(buffer[0])) == 1 || (my_ctrl(buffer[0])) == 1)
-			*line = push_line(buffer[0], *line);
+			*line = push_line(buffer[0], *line, &win);
 		else
-			*line = termcap_check(buffer[0], *line);
+			*line = termc_ctrl(buffer[0], *line, &term, &win);
+		ft_putnbr(win.lineshell);
 		ft_putchar(buffer[0]);
 	}
 	bring_back_shell(&term);

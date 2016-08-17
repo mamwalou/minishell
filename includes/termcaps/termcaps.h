@@ -46,19 +46,29 @@
 # define CTRL_SPACE  0
 # define CTRL_X      24
 
-#define CNT_TERM 1
+#define CNT_TERM 2
 
-typedef struct          s_terminal
+typedef struct	s_window
 {
-    int                input;
-    char               *(*f)(char *);
-}                       t_terminal;
+	int			lenght;
+	int			column;
+	int			lineshell;
+}				t_window;
 
-int                     termcaps(t_llist *env , char **line);
-char	               *push_line(char c, char *line);
-char                   *termcap_check(char c, char *line);
-char		           *depushline(char *line);
+typedef struct	s_terminal
+{
+    int			input;
+    char		*(*f)(char *, struct termios*, t_window *);
+}				t_terminal;
 
-char                    *ft_space(char *line);
-char                    *ft_del(char *line);
+
+
+int				termcaps(t_llist *env , char **line);
+char			*push_line(char c, char *line, t_window *win);
+char			*termc_ctrl(char c, char *line, struct termios *term,
+								t_window *win);
+char			*depushline(char *line, t_window *win);
+
+char			*ft_space(char *line, struct termios *term, t_window *win);
+char			*ft_del(char *line, struct termios *term, t_window *win);
 #endif

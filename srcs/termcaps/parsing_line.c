@@ -31,10 +31,11 @@ char		*real_push(char *str, char c)
 	return (tmp);
 }
 
-char		*push_line(char c, char *line)
+char		*push_line(char c, char *line, t_window *win)
 {
 	char	*ret;
 
+	win->lineshell++;
 	if (line == NULL)
 	{
 		ret = (char*)ft_memalloc(1);
@@ -47,17 +48,15 @@ char		*push_line(char c, char *line)
 	return (NULL);
 }
 
-char		*depushline(char *line)
+char		*depushline(char *line, t_window *win)
 {
 	int 	len;
 	int		i;
 
-	len = 0;
-	len = ft_strlen(line);
-	if (len > 0)
+	if (win->lineshell > 0)
 	{
+		win->lineshell--;
 		char *ret;
-
 		ret = (char*)ft_memalloc(len);
 		i = 0;
 		while (i < len - 1)
