@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/27 19:40:17 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/17 19:19:24 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		init_term(struct termios *term, char *name_term, t_window *data)
 	term->c_cc[VTIME] = 0;
 	data->lenght = tgetnum("li");
 	data->column = tgetnum("co");
+	data->lineshell = 0;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return ;
 
@@ -54,16 +55,14 @@ int			termcaps(t_llist *env, char **line)
 	struct termios		term;
 	t_window			win;
 	char				*name_term;
-	char				tmp;
 	char				buffer[3];
 
-	if ((name_term = search_env(env, "TERM")) == NULL)
+	if ((name_term = search_env(env, "TERM=")) == NULL)
 		return (-1);
-	win.lineshell = 0;
+	init_term(&term, name_term, &win);
 	while (buffer[0] != RETURN)
 	{
 		ft_bzero(buffer, 3);
-		init_term(&term, name_term, &win);
 		read(0, buffer, 3);
 		if (buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
@@ -71,8 +70,8 @@ int			termcaps(t_llist *env, char **line)
 			*line = push_line(buffer[0], *line, &win);
 		else
 			*line = termc_ctrl(buffer[0], *line, &term, &win);
-		ft_putnbr(win.lineshell);
 		ft_putchar(buffer[0]);
+		win.save = tgetstr("sc", NULL);
 	}
 	bring_back_shell(&term);
 	return (0);

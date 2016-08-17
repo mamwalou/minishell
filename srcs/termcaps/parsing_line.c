@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/17 18:10:34 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/27 18:32:59 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/17 18:47:14 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char		*push_line(char c, char *line, t_window *win)
 	char	*ret;
 
 	win->lineshell++;
+	win->column++;
 	if (line == NULL)
 	{
 		ret = (char*)ft_memalloc(1);
@@ -50,22 +51,17 @@ char		*push_line(char c, char *line, t_window *win)
 
 char		*depushline(char *line, t_window *win)
 {
-	int 	len;
 	int		i;
+	char *ret;
 
-	if (win->lineshell > 0)
+	if ((ret = (char*)ft_memalloc(win->lineshell)) == NULL)
+		return (NULL);
+	i = 0;
+	while (i < win->lineshell)
 	{
-		win->lineshell--;
-		char *ret;
-		ret = (char*)ft_memalloc(len);
-		i = 0;
-		while (i < len - 1)
-		{
-			ret[i] = line[i];
-			i++;
-		}
-		ret[i] = '\0';
-		return (ret);
+		ret[i] = line[i];
+		i++;
 	}
-	return (NULL);
+	ret[i] = '\0';
+	return (ret);
 }

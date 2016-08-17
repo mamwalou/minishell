@@ -20,11 +20,17 @@ int			ft_puts(int c)
 
 char        *ft_del(char *line, struct termios *term, t_window *win)
 {
-    char    *res;
+	char	*ret;
 
-    tputs(tgetstr("cl", 0), 1, ft_puts);
-    bring_back_shell(term);
-    return (depushline(line, win));
+	if (win->lineshell > 0)
+	{
+		win->lineshell--;
+		win->column--;
+		ret = depushline(line, win);
+		tputs(tgoto(tgetstr("ch", 0), 0, win->column), 1, ft_puts);
+		return (ret);
+	}
+	return (NULL);
 }
 
 char		*termc_ctrl(char c, char *line, struct termios *term, t_window *win)
