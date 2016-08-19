@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
+/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/16 17:53:55 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/19 05:14:56 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,18 @@ int			ft_setenv(t_data *data, t_llist *env)
 	return(0);
 }
 
-int			ft_unsetenv(t_data *data, t_llist *env)
+int				ft_unsetenv(t_data *data, t_llist *env)
 {
+	t_llist		*ptr;
+
+	ptr = env;
+	if (data->option[0])
+	{
+		while (ptr)
+		{
+			if (!(ft_strcmp((const char*)ptr->content, data->option[0])))
+				;
+		}
+	}
 	return(0);
 }

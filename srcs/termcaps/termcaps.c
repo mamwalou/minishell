@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
+/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/17 19:19:24 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/18 17:04:21 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int			termcaps(t_llist *env, char **line)
 		else
 			*line = termc_ctrl(buffer[0], *line, &term, &win);
 		ft_putchar(buffer[0]);
-		win.save = tgetstr("sc", NULL);
 	}
 	bring_back_shell(&term);
 	return (0);

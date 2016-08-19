@@ -6,7 +6,7 @@
 /*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/18 03:01:03 by salomon          ###   ########.fr       */
+/*   Updated: 2016/08/19 04:11:06 by salomon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,16 @@ void 					exect_it(t_data *data, t_llist *env)
 int			exec_parser(t_data *data, t_llist *env)
 {
 	int		i;
-	char 	*tmp;
 
 	i = 0;
-	if ((tmp = is_bulltin(data->cmd)) != NULL)
+	if ((is_bulltin(data->cmd)) != NULL)
 	{
-		while (g_builtin[i++].str)
+		while (g_builtin[i].str)
 		{
-			if (!ft_strcmp(g_builtin[i].str, tmp))
+			if (!ft_strcmp(g_builtin[i].str, data->cmd))
 				return (g_builtin[i].f(data, env));
+			i++;
 		}
-		free(tmp);
 	}
 	else
 		exect_it(data, env);
