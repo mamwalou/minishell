@@ -9,6 +9,9 @@ SRC_NAME = main.c \
 			ft_cd.c \
 			termcaps_checker.c \
 			termcaps.c \
+			manage_error.c \
+			my_unsetenv.c \
+			memory.c \
 			parser.c
 
 INC_PATH = ./includes/

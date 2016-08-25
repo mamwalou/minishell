@@ -66,7 +66,7 @@ int			termcaps(t_llist *env, char **line)
 		read(0, buffer, 3);
 		if (buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
-		if ((ft_isalpha(buffer[0])) == 1 || (my_ctrl(buffer[0])) == 1)
+		if ((ft_isalnum(buffer[0])) == 1 || (my_ctrl(buffer[0])) == 1)
 			*line = push_line(buffer[0], *line, &win);
 		else
 			*line = termc_ctrl(buffer[0], *line, &term, &win);

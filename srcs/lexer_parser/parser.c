@@ -14,23 +14,21 @@ void 		free_d(char **dtab, int lenght)
 		free(dtab);
 }
 
-int		parser_data(t_llist *env, char **line, t_data **data)
+int		parser_data(t_llist *env, char **line, t_data **data, t_memory **memory)
 {
 	while (*line)
 	{
-		if (*data == NULL)
+		if (*data != NULL)
+			((*data)->option) = init_option(*line, (*data)->option);
+		if (*data == NULL && ctrl_var(*line))
 		{
 			*data = init_data(env, *line);
 			if (!(*data)->cmd)
 				return (-1);
 		}
-		else
-		{
-			if ((data_filters(*line)) > 0)
-				;
-			((*data)->option) = push_option(*line, (*data)->option);
-		}
+		if (!ctrl_var(*line))
+			return (define_variable(*memory, *line));
 		line++;
 	}
-	return(1);
+	return(0);
 }

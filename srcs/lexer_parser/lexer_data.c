@@ -12,7 +12,19 @@
 
 #include "../../includes/minishell.h"
 
-int		data_filters(char *line)
+int		ctrl_var(char *line)
+{
+	int i;
+
+	i = 0;
+	while (ft_isalpha(line[i]))
+		i++;
+	if (line[i] == '=' && i > 0)
+		return (0);
+	return (1);
+}
+
+int		operator_filters(char *line)
 {
 	char		*tableau[8];
 	int			i;
@@ -42,6 +54,7 @@ int			my_ctrl(int test)
 		|| test == '<'
 		|| test == '>'
 	 	|| test == '&'
+		|| test == '='
 		|| test == '!')
 		return (1);
 	return (0);
@@ -50,9 +63,10 @@ int			my_ctrl(int test)
 char			*is_bulltin(char *cmd)
 {
 	if (ft_strcmp(cmd, "env") == 0
-		|| ft_strcmp(cmd, "setenv") == 0
+		|| ft_strcmp(cmd, "export") == 0
 		|| ft_strcmp(cmd, "unsetenv") == 0
-		|| ft_strcmp(cmd, "cd") == 0)
+		|| ft_strcmp(cmd, "cd") == 0
+		|| ft_strcmp(cmd, "exit") == 0)
 		return (cmd);
 	return (NULL);
 }
@@ -63,9 +77,11 @@ char			*bin_checkout(char *line, t_llist *env)
 	char		*cpy;
 	int			lenght_bin;
 	int			i;
-	int			tableau[]= {':',0};
+	int			tableau[]= {':', 0};
+
 	i = 0;
 	cpy = NULL;
+	bin = NULL;
 	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), tableau);
 	while (i < lenght_bin)
 	{

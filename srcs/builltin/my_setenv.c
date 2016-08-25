@@ -41,22 +41,13 @@ int		my_setenv(t_llist **env,char **environ, const char *value)
 
 int			ft_setenv(t_data *data, t_llist *env)
 {
-	ft_putendl(*(data)->option);
-	return(0);
-}
-
-int				ft_unsetenv(t_data *data, t_llist *env)
-{
-	t_llist		*ptr;
+	t_llist *ptr;
+	char 	*tmp;
 
 	ptr = env;
-	if (data->option[0])
+	if ((tmp = search_env(env, data->option[0])) != NULL)
 	{
-		while (ptr)
-		{
-			if (!(ft_strcmp((const char*)ptr->content, data->option[0])))
-				;
-		}
+
 	}
 	return(0);
 }

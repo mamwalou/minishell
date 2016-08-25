@@ -27,9 +27,9 @@ char        *ft_del(char *line, struct termios *term, t_window *win)
 		win->lineshell--;
 		win->column--;
 		ret = depushline(line, win);
-		tputs(tgoto(tgetstr("le", 0), 0, win->column), 1, ft_puts);
+		tputs(tgetstr("le", 0), 1, ft_puts);
 		ft_putchar(' ');
-		tputs(tgoto(tgetstr("le", 0), 0, win->column), 1, ft_puts);
+		tputs(tgetstr("le", 0), 1, ft_puts);
 		return (ret);
 	}
 	return (NULL);

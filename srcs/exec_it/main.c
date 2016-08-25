@@ -12,13 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-
-void				ft_print_error(char *error, const char *str)
-{
-	ft_putstr(error);
-	ft_putendl(str);
-}
-
 void 			prompt(t_llist *env)
 {
 	ft_putstr(ft_strjoin("\033[1;31m", search_env(env, "USER=")));
@@ -30,12 +23,14 @@ void 			prompt(t_llist *env)
 
 int					main(int argc, char **argv, char **environ)
 {
-	t_llist		*env;
-	char		*line;
-	int			ctrl;
+	t_memory		memory;
+	t_llist			*env;
+	char			*line;
+	int				ctrl;
 
-	env = NULL;
 	ctrl = 0;
+	env = NULL;
+	init_memory(&memory);
 	while (ctrl == 0)
 	{
 		line = NULL;
@@ -44,9 +39,8 @@ int					main(int argc, char **argv, char **environ)
 		if ((termcaps(env, &line)) == -1)
 			return (-1);
 		if (line)
-			exec_cmd(env, line);
+			exec_cmd(&memory, env, line);
 		free(line);
-
 	}
 	return (0);
 }

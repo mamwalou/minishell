@@ -16,7 +16,7 @@ static const t_built	g_builtin[NB_BUILT] =
 {
 	{"cd", ft_cd},
 	{"env", ft_env},
-	{"setenv", ft_setenv},
+	{"export", ft_setenv},
 	{"unsetenv", ft_unsetenv},
 };
 
@@ -39,7 +39,7 @@ int			exec_parser(t_data *data, t_llist *env)
 	int		i;
 
 	i = 0;
-	if ((is_bulltin(data->cmd)) != NULL)
+	if ((is_bulltin(data->cmd)) != NULL && ft_strcmp(data->cmd, "exit"))
 	{
 		while (g_builtin[i].str)
 		{
@@ -48,26 +48,37 @@ int			exec_parser(t_data *data, t_llist *env)
 			i++;
 		}
 	}
+	else if (!ft_strcmp(data->cmd, "exit"))
+		return (42);
 	else
 		exect_it(data, env);
-	return (1);
+	return (0);
 }
 
-void 		exec_cmd(t_llist *env, char *line)
+void 		exec_cmd(t_memory *memory, t_llist *env, char *line)
 {
 	t_data	*data;
 	char	**pline;
 	int		lenght;
+	int		error;
 	int 	tableau[3] = {9, 32, 0};
 
+	error = 0;
 	data = NULL;
 	lenght = ft_strsplit(&pline, line, tableau);
 	if (lenght > 0)
 	{
-		if ((parser_data(env, pline, &data)) == -1)
-			ft_print_error(pline[0], ": command not found");
-		else
-			exec_parser(data, env);
+		error = parser_data(env, pline, &data, &memory);
+		if (error < 0)
+		{
+			ft_putstr(line);
+			manage_error(error, data, env);
+		}
+		else if (error < 5)
+ 		{
+			if ((error = exec_parser(data, env)) != 0)
+				manage_error(error, data, env);
+		}
 	}
 	free_d(pline, lenght);
 }
