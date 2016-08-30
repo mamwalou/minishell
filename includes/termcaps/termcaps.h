@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/07/27 19:33:04 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/30 23:04:43 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <term.h>
 # include <curses.h>
+# include <dirent.h>
 # include "../../libft/Includes/libft.h"
 # include "../minishell.h"
 # define ESCAPE      27
@@ -46,29 +47,37 @@
 # define CTRL_SPACE  0
 # define CTRL_X      24
 
-#define CNT_TERM 2
+#define CNT_TERM 3
 
 typedef struct	s_window
 {
 	int			lenght;
 	int			column;
 	int			lineshell;
+	char		*save;
+	char		buffer[3];
+	int			pos[1];
 }				t_window;
 
 typedef struct	s_terminal
 {
     int			input;
-    char		*(*f)(char *, struct termios*, t_window *);
+    int			(*f)(t_window *, t_llist *,char *);
 }				t_terminal;
 
 
+int				ft_puts(int c);
+int				termcaps(t_llist *env , char **line, int lenght_prompt);
+void			bring_back_shell(struct termios *term);
 
-int				termcaps(t_llist *env , char **line);
-char			*push_line(char c, char *line, t_window *win);
-char			*termc_ctrl(char c, char *line, struct termios *term,
-								t_window *win);
+
+char			*parsing_term(int code, char *line, t_window *win);
 char			*depushline(char *line, t_window *win);
+char			*push_line(char c, char *line, t_window *win);
 
-char			*ft_space(char *line, struct termios *term, t_window *win);
-char			*ft_del(char *line, struct termios *term, t_window *win);
+int				termc_ctrl(char *line, t_window *win, t_llist *e);
+
+int				ft_space(t_window *win, t_llist *e, char *line);
+int				ft_del(t_window *win, t_llist *e, char *line);
+int				ft_search(t_window *win, t_llist *e, char *line);
 #endif

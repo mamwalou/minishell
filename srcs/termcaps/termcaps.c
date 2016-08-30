@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/30 19:40:21 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/30 23:35:49 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,32 @@ void 		termcaps_exit(const char *exit_msg, struct termios *term)
 	exit (-1);
 }
 
-
-
 int			termcaps(t_llist *env, char **line, int lenght_prompt)
 {
 	struct termios		term;
 	t_window			win;
 	char				*name_term;
-	char				buffer[3];
-	int					code_term;
+	int					code;
 
 	if ((name_term = search_env(env, "TERM=")) == NULL)
 		return (-1);
 	init_term(&term, name_term, &win);
 	win.pos[0] = lenght_prompt + 1;
 	win.pos[1] = win.lenght;
-	while (buffer[0] != RETURN)
+	while (win.buffer[0] != RETURN)
 	{
-		ft_bzero(buffer, 3);
-		read(0, buffer, 3);
-		if (buffer[0] == CTRL_D)
+		ft_bzero(win.buffer, 3);
+		read(0, win.buffer, 3);
+		if (win.buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
-		if ((ft_isalnum(buffer[0])) == 1 || (my_ctrl(buffer[0])) == 1)
+		if ((ft_isalnum(win.buffer[0])) == 1 || (my_ctrl(win.buffer[0])) == 1)
 		{
-			*line = push_line(buffer[0], *line, &win);
-			ft_putchar(buffer[0]);
+			*line = push_line(win.buffer[0], *line, &win);
+			ft_putchar(win.buffer[0]);
 		}
-		else if ((code_term = termc_ctrl(buffer[0], *line, &term, &win)) > 0)
-			*line = parsing_term(code_term, *line, &win);
+		else if ((code = termc_ctrl(*line, &win, env)) > 0)
+			*line = parsing_term(code, *line, &win);
+
 	}
 	ft_putchar('\n');
 	bring_back_shell(&term);
