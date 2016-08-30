@@ -7,9 +7,12 @@ static const t_terminal    g_tableau[CNT_TERM] =
     {SPACE, ft_space},
 };
 
-char		*ft_space(char *line, struct termios *term, t_window *win)
+int			ft_space(char *line, struct termios *term, t_window *win)
 {
-    return (push_line(' ', line, win));
+	win->pos[0]++;
+	win->lineshell++;
+	ft_putchar(' ');
+    return (SPACE);
 }
 
 int			ft_puts(int c)
@@ -18,24 +21,22 @@ int			ft_puts(int c)
 	return (0);
 }
 
-char        *ft_del(char *line, struct termios *term, t_window *win)
+int			ft_del(char *line, struct termios *term, t_window *win)
 {
 	char	*ret;
 
 	if (win->lineshell > 0)
 	{
 		win->lineshell--;
-		win->column--;
 		ret = depushline(line, win);
-		tputs(tgetstr("le", 0), 1, ft_puts);
+		tputs(tgoto(tgetstr("le", 0), win->pos[0], win->pos[1]), 1, ft_puts);
 		ft_putchar(' ');
-		tputs(tgetstr("le", 0), 1, ft_puts);
-		return (ret);
+		tputs(tgoto(tgetstr("le", 0), win->pos[0], win->pos[1]), 1, ft_puts);
 	}
-	return (NULL);
+	return (DELETE);
 }
 
-char		*termc_ctrl(char c, char *line, struct termios *term, t_window *win)
+int			termc_ctrl(char c, char *line, struct termios *term, t_window *win)
 {
     int		i;
 
@@ -46,5 +47,5 @@ char		*termc_ctrl(char c, char *line, struct termios *term, t_window *win)
             return (g_tableau[i].f(line, term, win));
         i++;
     }
-    return (line);
+    return (0);
 }

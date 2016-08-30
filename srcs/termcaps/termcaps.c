@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/18 17:04:21 by salomon          ###   ########.fr       */
+/*   Updated: 2016/08/30 19:40:21 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,19 @@ void 		termcaps_exit(const char *exit_msg, struct termios *term)
 
 
 
-int			termcaps(t_llist *env, char **line)
+int			termcaps(t_llist *env, char **line, int lenght_prompt)
 {
 	struct termios		term;
 	t_window			win;
 	char				*name_term;
 	char				buffer[3];
+	int					code_term;
 
 	if ((name_term = search_env(env, "TERM=")) == NULL)
 		return (-1);
 	init_term(&term, name_term, &win);
+	win.pos[0] = lenght_prompt + 1;
+	win.pos[1] = win.lenght;
 	while (buffer[0] != RETURN)
 	{
 		ft_bzero(buffer, 3);
@@ -67,11 +70,14 @@ int			termcaps(t_llist *env, char **line)
 		if (buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
 		if ((ft_isalnum(buffer[0])) == 1 || (my_ctrl(buffer[0])) == 1)
+		{
 			*line = push_line(buffer[0], *line, &win);
-		else
-			*line = termc_ctrl(buffer[0], *line, &term, &win);
-		ft_putchar(buffer[0]);
+			ft_putchar(buffer[0]);
+		}
+		else if ((code_term = termc_ctrl(buffer[0], *line, &term, &win)) > 0)
+			*line = parsing_term(code_term, *line, &win);
 	}
+	ft_putchar('\n');
 	bring_back_shell(&term);
 	return (0);
 }

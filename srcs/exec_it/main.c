@@ -3,22 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/18 19:30:38 by salomon          ###   ########.fr       */
+/*   Updated: 2016/08/30 19:39:30 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void 			prompt(t_llist *env)
+static int 			prompt(t_llist *env)
 {
+	int				lenght_prompt;
+
+	lenght_prompt = 0;
 	ft_putstr(ft_strjoin("\033[1;31m", search_env(env, "USER=")));
+	lenght_prompt = ft_strlen(search_env(env, "USER="));
 	ft_putstr("\033[0m:");
 	ft_putstr(ft_strjoin("\033[1;69m", search_env(env, "PWD=")));
 	ft_putstr("\033[0m:");
+	lenght_prompt += ft_strlen(search_env(env, "PWD="));
 	ft_putstr(" $>");
+	return (lenght_prompt + 3);
 }
 
 int					main(int argc, char **argv, char **environ)
@@ -27,6 +33,7 @@ int					main(int argc, char **argv, char **environ)
 	t_llist			*env;
 	char			*line;
 	int				ctrl;
+	int				lenght_prompt;
 
 	ctrl = 0;
 	env = NULL;
@@ -35,8 +42,8 @@ int					main(int argc, char **argv, char **environ)
 	{
 		line = NULL;
 		my_setenv(&env, environ, NULL);
-		prompt(env);
-		if ((termcaps(env, &line)) == -1)
+		lenght_prompt = prompt(env);
+		if ((termcaps(env, &line, lenght_prompt)) == -1)
 			return (-1);
 		if (line)
 			exec_cmd(&memory, env, line);

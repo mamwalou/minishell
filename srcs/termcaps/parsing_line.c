@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/17 18:10:34 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/17 18:47:14 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/08/30 19:41:46 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*push_line(char c, char *line, t_window *win)
 	char	*ret;
 
 	win->lineshell++;
-	win->column++;
+	win->pos[0]++;
 	if (line == NULL)
 	{
 		ret = (char*)ft_memalloc(1);
@@ -64,4 +64,13 @@ char		*depushline(char *line, t_window *win)
 	}
 	ret[i] = '\0';
 	return (ret);
+}
+
+char		*parsing_term(int code, char *line, t_window *win)
+{
+	if (code == SPACE)
+		return (push_line(' ', line, win));
+	else if (code == DELETE)
+		return (depushline(line, win));
+	return (NULL);
 }
