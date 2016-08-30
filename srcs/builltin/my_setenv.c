@@ -25,7 +25,7 @@ t_llist			*build_env(char **environ)
 	return (ret);
 }
 
-int		my_setenv(t_llist **env,char **environ, const char *value)
+int				my_setenv(t_llist **env,char **environ, const char *value)
 {
 	if (!value && !*env)
 	{
@@ -39,15 +39,24 @@ int		my_setenv(t_llist **env,char **environ, const char *value)
 	return (-1);
 }
 
-int			ft_setenv(t_data *data, t_llist *env)
+static void 	export_var(t_llist **env, char *VAR)
+{
+	char 		*tmp;
+	int			i;
+
+	i = 0;
+	while (VAR[i] != ';' && VAR[i])
+		i++;
+	if (VAR[i] != ';')
+		export_var(env, VAR + i);
+}
+
+int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
 {
 	t_llist *ptr;
-	char 	*tmp;
 
 	ptr = env;
-	if ((tmp = search_env(env, data->option[0])) != NULL)
-	{
-
-	}
+	if (memory->VAR)
+		export_var(&env, memory->VAR);
 	return(0);
 }

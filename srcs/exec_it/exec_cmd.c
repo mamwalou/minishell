@@ -18,6 +18,7 @@ static const t_built	g_builtin[NB_BUILT] =
 	{"env", ft_env},
 	{"export", ft_setenv},
 	{"unsetenv", ft_unsetenv},
+	{"var", ft_variable},
 };
 
 void 					exect_it(t_data *data, t_llist *env)
@@ -34,17 +35,17 @@ void 					exect_it(t_data *data, t_llist *env)
 		execve(data->cmd, data->option, NULL);
 }
 
-int			exec_parser(t_data *data, t_llist *env)
+int			exec_parser(t_data *data, t_llist *env, t_memory *memory)
 {
 	int		i;
 
 	i = 0;
 	if ((is_bulltin(data->cmd)) != NULL && ft_strcmp(data->cmd, "exit"))
 	{
-		while (g_builtin[i].str)
+		while (i < NB_BUILT)
 		{
 			if (!ft_strcmp(g_builtin[i].str, data->cmd))
-				return (g_builtin[i].f(data, env));
+				return (g_builtin[i].f(data, env, memory));
 			i++;
 		}
 	}
@@ -65,7 +66,8 @@ void 		exec_cmd(t_memory *memory, t_llist *env, char *line)
 
 	error = 0;
 	data = NULL;
-	lenght = ft_strsplit(&pline, line, tableau);
+	if ((lenght = ft_strsplit(&pline, line, tableau)) == -1)
+		return ;
 	if (lenght > 0)
 	{
 		error = parser_data(env, pline, &data, &memory);
@@ -76,7 +78,7 @@ void 		exec_cmd(t_memory *memory, t_llist *env, char *line)
 		}
 		else if (error < 5)
  		{
-			if ((error = exec_parser(data, env)) != 0)
+			if ((error = exec_parser(data, env, memory)) != 0)
 				manage_error(error, data, env);
 		}
 	}

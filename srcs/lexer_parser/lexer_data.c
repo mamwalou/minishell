@@ -66,7 +66,8 @@ char			*is_bulltin(char *cmd)
 		|| ft_strcmp(cmd, "export") == 0
 		|| ft_strcmp(cmd, "unsetenv") == 0
 		|| ft_strcmp(cmd, "cd") == 0
-		|| ft_strcmp(cmd, "exit") == 0)
+		|| ft_strcmp(cmd, "exit") == 0
+		|| ft_strcmp(cmd, "var") == 0)
 		return (cmd);
 	return (NULL);
 }

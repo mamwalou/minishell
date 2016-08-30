@@ -36,7 +36,7 @@ typedef struct				s_memory
 typedef struct				s_built
 {
 	char					*str;
-	int						(*f)(t_data *, t_llist *);
+	int						(*f)(t_data *, t_llist *, t_memory *);
 }							t_built;
 
 					/*EROOR*/
@@ -44,10 +44,11 @@ void		ft_print_error(char *error, const char *str);
 void		manage_error(int code_err, t_data *data, t_llist *env);
 
 					/*builltin*/
-int			ft_cd(t_data *data, t_llist *env);
-int			ft_env(t_data *data, t_llist *env);
-int			ft_unsetenv(t_data *data, t_llist *env);
-int			ft_setenv(t_data *data, t_llist *env);
+int			ft_variable(t_data *data, t_llist *env, t_memory *memory);
+int			ft_cd(t_data *data, t_llist *env, t_memory *memory);
+int			ft_env(t_data *data, t_llist *env, t_memory *memory);
+int			ft_unsetenv(t_data *data, t_llist *env, t_memory *memory);
+int			ft_setenv(t_data *data, t_llist *env, t_memory *memory);
 int			my_setenv(t_llist **env,char **environ, const char *value);
 char		**my_env(t_llist *env);
 

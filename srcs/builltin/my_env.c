@@ -36,7 +36,7 @@ char			**my_env(t_llist *env)
 	return (ret);
 }
 
-int		ft_env(t_data *data, t_llist *env)
+int		ft_env(t_data *data, t_llist *env, t_memory *memory)
 {
 	t_llist *ptr;
 
