@@ -13,6 +13,7 @@ SRC_NAME = main.c \
 			my_unsetenv.c \
 			memory.c \
 			ft_variables.c \
+			search.c \
 			parser.c
 
 INC_PATH = ./includes/

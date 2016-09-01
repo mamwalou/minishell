@@ -6,25 +6,27 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/30 23:35:49 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/02 00:47:47 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
-void		init_term(struct termios *term, char *name_term, t_window *data)
+void		init_term(struct termios *term, char *n_te, t_window *data, int len)
 {
-	if (tgetent(NULL, name_term) == ERR)
+	if (tgetent(NULL, n_te) == ERR)
 		return ;
 	if (tcgetattr(0, term) == -1)
 		return ;
 	term->c_lflag &= ~(ICANON|ECHO|ISIG);
-	term->c_cc[VMIN] = 0;
+	term->c_cc[VMIN] = 1;
 	term->c_cc[VTIME] = 0;
 	data->lenght = tgetnum("li");
 	data->column = tgetnum("co");
 	data->lineshell = 0;
+	data->pos[0] = len + 1;
+	data->pos[1] = data->lenght;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return ;
 
@@ -57,13 +59,11 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt)
 
 	if ((name_term = search_env(env, "TERM=")) == NULL)
 		return (-1);
-	init_term(&term, name_term, &win);
-	win.pos[0] = lenght_prompt + 1;
-	win.pos[1] = win.lenght;
+	init_term(&term, name_term, &win, lenght_prompt);
 	while (win.buffer[0] != RETURN)
 	{
-		ft_bzero(win.buffer, 3);
-		read(0, win.buffer, 3);
+		ft_bzero(win.buffer, 4);
+		read(0, win.buffer, 4);
 		if (win.buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
 		if ((ft_isalnum(win.buffer[0])) == 1 || (my_ctrl(win.buffer[0])) == 1)
@@ -73,7 +73,6 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt)
 		}
 		else if ((code = termc_ctrl(*line, &win, env)) > 0)
 			*line = parsing_term(code, *line, &win);
-
 	}
 	ft_putchar('\n');
 	bring_back_shell(&term);

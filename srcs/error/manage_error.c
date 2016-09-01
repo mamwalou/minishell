@@ -6,7 +6,7 @@ void				ft_print_error(char *error, const char *str)
 	ft_putendl(str);
 }
 
-void		manage_error(int code_err, t_data *data, t_llist *env)
+int					manage_error(int code_err, t_data *data, t_llist *env)
 {
 	if (code_err == -1)
 		ft_putendl(" :CMD not found");
@@ -18,7 +18,7 @@ void		manage_error(int code_err, t_data *data, t_llist *env)
 	if (code_err == 42)
 	{
 		ft_putendl("Good bye, have fun");
-		exit(0);
+		return (-1);
 	}
-	return ;
+	return (0);
 }

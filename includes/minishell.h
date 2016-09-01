@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/30 23:22:35 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/01 23:51:08 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ typedef struct				s_built
 	int						(*f)(t_data *, t_llist *, t_memory *);
 }							t_built;
 
+int			prompt(t_llist *env);
+
 					/*EROOR*/
 void		ft_print_error(char *error, const char *str);
-void		manage_error(int code_err, t_data *data, t_llist *env);
+int			manage_error(int code_err, t_data *data, t_llist *env);
 
 					/*builltin*/
 int			ft_variable(t_data *data, t_llist *env, t_memory *memory);
@@ -53,7 +55,7 @@ int			my_setenv(t_llist **env,char **environ, const char *value);
 char		**my_env(t_llist *env);
 
 					/*exect_it*/
-void 		exec_cmd(t_memory *memory,t_llist *env, char *line);
+int			exec_cmd(t_memory *memory,t_llist *env, char *line);
 
 					/*parser*/
 int			parser_data(t_llist *env, char **line, t_data **data, t_memory **memory);

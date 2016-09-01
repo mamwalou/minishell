@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/30 23:04:43 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/02 00:19:50 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_window
 	int			column;
 	int			lineshell;
 	char		*save;
-	char		buffer[3];
+	char		buffer[4];
 	int			pos[1];
 }				t_window;
 

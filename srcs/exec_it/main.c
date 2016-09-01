@@ -6,13 +6,14 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/30 22:17:14 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/02 00:43:44 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <time.h>
 
-static int 			prompt(t_llist *env)
+int 			prompt(t_llist *env)
 {
 	int				lenght_prompt;
 
@@ -40,13 +41,13 @@ int					main(int argc, char **argv, char **environ)
 	init_memory(&memory);
 	while (ctrl == 0)
 	{
-		line = NULL;
 		my_setenv(&env, environ, NULL);
 		lenght_prompt = prompt(env);
+		line = NULL;
 		if ((termcaps(env, &line, lenght_prompt)) == -1)
 			return (-1);
 		if (line)
-			exec_cmd(&memory, env, line);
+			ctrl = exec_cmd(&memory, env, line);
 		free(line);
 	}
 	return (0);
