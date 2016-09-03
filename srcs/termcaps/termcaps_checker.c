@@ -32,15 +32,22 @@ int			ft_del(t_window *win, t_llist *e, char *line)
 	return (DELETE);
 }
 
-int			termc_ctrl(char *line, t_window *win, t_llist *e)
+int			termc_ctrl(char *line, t_window *win, t_llist *e, int *code_term)
 {
     int		i;
+	int		ret;
 
     i = 0;
     while (i < CNT_TERM)
     {
         if (g_tableau[i].input == win->buffer[0])
-            return (g_tableau[i].f(win, e, line));
+		{
+			if (*code_term == TAB)
+				return (0);
+			if ((ret = g_tableau[i].f(win, e, line)) == TAB)
+				*code_term = ret;
+			return (ret);
+		}
         i++;
     }
     return (0);

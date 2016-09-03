@@ -6,17 +6,39 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/17 18:10:34 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/30 23:35:30 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/03 22:03:56 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 
-char		*real_push(char *str, char c)
+int					created_path(DIR *ir, t_llist **ret)
 {
-	char	*tmp;
-	int		len;
-	int		i;
+	DIR				*ptr;
+	struct dirent 	*fl;
+	t_llist			*ptl;
+	int				toret;
+	int				lenght;
+
+	ret = 0;
+	ptr = ir;
+	ptl = *ret;
+	lenght = ft_strlen(fl->d_name);
+	while ((fl = readdir(ptr)) != NULL)
+	{
+		if (fl->d_name[0] != '.')
+			ft_lstadd(ret, ft_lstnew(fl->d_name, lenght));
+		if (lenght > toret)
+			toret = lenght;
+	}
+	return (toret + 3);
+}
+
+char				*real_push(char *str, char c)
+{
+	char			*tmp;
+	int				len;
+	int				i;
 
 	i = 0;
 	len = ft_strlen(str);
@@ -31,9 +53,9 @@ char		*real_push(char *str, char c)
 	return (tmp);
 }
 
-char		*push_line(char c, char *line, t_window *win)
+char				*push_line(char c, char *line, t_window *win)
 {
-	char	*ret;
+	char			*ret;
 
 	win->lineshell++;
 	win->pos[0]++;
@@ -49,7 +71,7 @@ char		*push_line(char c, char *line, t_window *win)
 	return (NULL);
 }
 
-char		*depushline(char *line, t_window *win)
+char				*depushline(char *line, t_window *win)
 {
 	int		i;
 	char *ret;
@@ -66,7 +88,7 @@ char		*depushline(char *line, t_window *win)
 	return (ret);
 }
 
-char		*parsing_term(int code, char *line, t_window *win)
+char				*parsing_term(int code, char *line, t_window *win)
 {
 	if (code == SPACE)
 		return (push_line(' ', line, win));

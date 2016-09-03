@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/08/19 05:14:56 by salomon          ###   ########.fr       */
+/*   Updated: 2016/09/03 22:05:40 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static void 	export_var(t_llist **env, char *VAR)
 	i = 0;
 	while (VAR[i] != ';' && VAR[i])
 		i++;
-	if (VAR[i] != ';')
-		export_var(env, VAR + i);
+	exit(1);
+	//ft_lstadd(env, ft_lstnew(ft_strncpy(VAR, NULL, i), i));
 }
 
 int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)

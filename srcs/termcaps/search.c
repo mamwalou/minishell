@@ -20,44 +20,51 @@ int					count_line(char *line, int lenght)
 	return (0);
 }
 
+void 				list_files(t_window *win, t_llist *dline, int tabulation)
+{
+	int				lenght_line;
+
+	lenght_line = 0;
+
+	tputs(tgetstr("sc", 0), 1, ft_puts);
+	ft_putchar('\n');
+	while (dline)
+	{
+		if (tabulation )
+		ft_putstr(dline->content);
+		ft_putchar('\t');
+		dline = dline->next;
+	}
+	tputs(tgetstr("rc", 0), 1, ft_puts);
+	tputs(tgoto(tgetstr("cm", 0),win->pos[0] + 1, win->pos[1] - 3), 1, ft_puts);
+}
+
 void 				path_found(t_window *win, t_llist *e, char *line)
 {
-	struct dirent 	*fl;
 	DIR				*ir;
+	t_llist			*dline;
+	char			*save;
+	int				tabulation;
 
+	dline = NULL;
 	if ((ir = opendir(search_env(e, "PWD="))) == NULL)
 		exit (1);
-	ft_putchar('\n');
-	while ((fl = readdir(ir)) != NULL)
-	{
-		ft_putstr(fl->d_name);
-		ft_putchar('\t');
-	}
-	ft_putchar('\n');
-	prompt(e);
-	ft_putstr(line);
+	tabulation = created_path(ir, &dline);
+	list_files(win, dline, tabulation);
 }
 
 void 				path_found1(t_window *win, t_llist *e, char *line)
 {
-	struct dirent 	*fl;
 	DIR				*ir;
-	char			**dline;
-	int 			tableau[2] = {32, 0};
+	t_llist			*dline;
 	int				lenght;
+	int				tabulation;
 
-	lenght = ft_strsplit(&dline, line, tableau);
+	dline = NULL;
 	if ((ir = opendir(search_env(e, "PWD="))) == NULL)
 		exit (1);
-	ft_putchar('\n');
-	while ((fl = readdir(ir)) != NULL)
-	{
-		ft_putstr(fl->d_name);
-		ft_putchar('\t');
-	}
-	ft_putchar('\n');
-	prompt(e);
-	ft_putstr(line);
+	tabulation = created_path(ir, &dline);
+	list_files(win, dline, tabulation);
 }
 
 int					ft_search(t_window *win, t_llist *e, char *line)
@@ -74,5 +81,5 @@ int					ft_search(t_window *win, t_llist *e, char *line)
 		else if (ft_isalnum(line[win->lineshell - 1]) == 1)
 			path_found1(win, e, line);
 	}
-	return (0);
+	return (TAB);
 }

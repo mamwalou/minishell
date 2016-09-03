@@ -6,16 +6,20 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/02 00:47:47 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/03 21:13:24 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
-void		init_term(struct termios *term, char *n_te, t_window *data, int len)
+void		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 {
-	if (tgetent(NULL, n_te) == ERR)
+	char				*name_term;
+
+	if ((name_term = search_env(e, "TERM=")) == NULL)
+		return ;
+	if (tgetent(NULL, name_term) == ERR)
 		return ;
 	if (tcgetattr(0, term) == -1)
 		return ;
@@ -29,7 +33,6 @@ void		init_term(struct termios *term, char *n_te, t_window *data, int len)
 	data->pos[1] = data->lenght;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return ;
-
 }
 
 void 		bring_back_shell(struct termios *term)
@@ -54,12 +57,11 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt)
 {
 	struct termios		term;
 	t_window			win;
-	char				*name_term;
 	int					code;
+	int					code_to_return;
 
-	if ((name_term = search_env(env, "TERM=")) == NULL)
-		return (-1);
-	init_term(&term, name_term, &win, lenght_prompt);
+	code_to_return = 0;
+	init_term(&term, env, &win, lenght_prompt);
 	while (win.buffer[0] != RETURN)
 	{
 		ft_bzero(win.buffer, 4);
@@ -71,9 +73,11 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt)
 			*line = push_line(win.buffer[0], *line, &win);
 			ft_putchar(win.buffer[0]);
 		}
-		else if ((code = termc_ctrl(*line, &win, env)) > 0)
+		else if ((code = termc_ctrl(*line, &win, env, &code_to_return)) > 0)
 			*line = parsing_term(code, *line, &win);
 	}
+	if (code_to_return + RETURN == TAB + RETURN)
+		tabulation(*line, &win);
 	ft_putchar('\n');
 	bring_back_shell(&term);
 	return (0);
