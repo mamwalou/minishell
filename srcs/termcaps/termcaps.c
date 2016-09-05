@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/05 21:13:48 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/05 23:55:35 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,10 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt)
 			ft_putchar(win.buffer[0]);
 		}
 		else if ((code = termc_ctrl(*line, &win, env, &code_to_return)) > 0)
-		{
 			*line = parsing_term(code, *line, &win);
-		}
 	}
 	if (code_to_return + RETURN == TAB + RETURN)
 		tabulation(*line, &win);
-	ft_putchar('\n');
 	bring_back_shell(&term);
 	return (0);
 }

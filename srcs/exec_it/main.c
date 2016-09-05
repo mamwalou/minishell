@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/05 21:13:47 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/05 23:55:33 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int					main(int argc, char **argv, char **environ)
 		line = NULL;
 		if ((termcaps(env, &line, lenght_prompt)) == -1)
 			return (-1);
+		ft_putchar('\n');
 		if (line)
 			ctrl = exec_cmd(&memory, env, line);
 		free(line);

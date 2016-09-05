@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   search.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/05 23:57:32 by sbeline           #+#    #+#             */
+/*   Updated: 2016/09/05 23:57:33 by sbeline          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
@@ -54,7 +66,7 @@ void 				list_files(t_window *win, t_llist *dline, int tabulation)
 		dline = dline->next;
 	}
 	tputs(tgetstr("rc", 0), 1, ft_puts);
-	tputs(tgoto(tgetstr("cm", 0),win->pos[0] + 1, win->pos[1] - count), 1, ft_puts);
+	tputs(tgoto(tgetstr("up", 0),win->pos[0], win->pos[1] - count), 1, ft_puts);
 }
 
 void 				path_found(t_window *win, t_llist *e, char *line)
