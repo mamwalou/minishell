@@ -14,6 +14,7 @@ SRC_NAME = main.c \
 			memory.c \
 			ft_variables.c \
 			search.c \
+			auto_compl.c \
 			parser.c
 
 INC_PATH = ./includes/

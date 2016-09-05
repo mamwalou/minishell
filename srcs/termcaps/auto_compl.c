@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 18:08:58 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/03 21:20:40 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/05 21:13:46 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 char 		*tabulation(char *line, t_window *win)
 {
-	
+
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/02 00:41:39 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/05 17:03:14 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int 		exec_cmd(t_memory *memory, t_llist *env, char *line)
 	error = 0;
 	data = NULL;
 	if ((lenght = ft_strsplit(&pline, line, tableau)) == -1)
-		return (-1);
+		return (0);
 	if (lenght > 0)
 	{
 		error = parser_data(env, pline, &data, &memory);

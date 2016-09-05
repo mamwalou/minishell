@@ -42,8 +42,6 @@ int			termc_ctrl(char *line, t_window *win, t_llist *e, int *code_term)
     {
         if (g_tableau[i].input == win->buffer[0])
 		{
-			if (*code_term == TAB)
-				return (0);
 			if ((ret = g_tableau[i].f(win, e, line)) == TAB)
 				*code_term = ret;
 			return (ret);

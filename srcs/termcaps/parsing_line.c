@@ -6,32 +6,31 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/17 18:10:34 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/03 22:03:56 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/05 21:13:46 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 
-int					created_path(DIR *ir, t_llist **ret)
+t_llist					*created_path(int *tabulation, t_llist *e)
 {
 	DIR				*ptr;
 	struct dirent 	*fl;
-	t_llist			*ptl;
-	int				toret;
+	t_llist			*ret;
 	int				lenght;
 
 	ret = 0;
-	ptr = ir;
-	ptl = *ret;
-	lenght = ft_strlen(fl->d_name);
+	if ((ptr = opendir(search_env(e, "PWD="))) == NULL)
+		exit (1);
 	while ((fl = readdir(ptr)) != NULL)
 	{
+		lenght = ft_strlen(fl->d_name);
 		if (fl->d_name[0] != '.')
-			ft_lstadd(ret, ft_lstnew(fl->d_name, lenght));
-		if (lenght > toret)
-			toret = lenght;
+			ft_lstadd(&ret, ft_lstnew(fl->d_name, lenght));
+		if (lenght > *tabulation)
+			*tabulation = lenght;
 	}
-	return (toret + 3);
+	return (ret);
 }
 
 char				*real_push(char *str, char c)
@@ -68,7 +67,7 @@ char				*push_line(char c, char *line, t_window *win)
 	}
 	else
 		return (real_push(line, c));
-	return (NULL);
+	return (line);
 }
 
 char				*depushline(char *line, t_window *win)
@@ -94,5 +93,5 @@ char				*parsing_term(int code, char *line, t_window *win)
 		return (push_line(' ', line, win));
 	else if (code == DELETE)
 		return (depushline(line, win));
-	return (NULL);
+	return (line);
 }
