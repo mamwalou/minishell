@@ -6,13 +6,12 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/05 21:13:47 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/06 17:56:08 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERMCAPS_H
 # define TERMCAPS_H
-
 
 # include <unistd.h>
 # include <term.h>
@@ -46,8 +45,20 @@
 # define TAB		 9
 # define CTRL_SPACE  0
 # define CTRL_X      24
+# define CNT_TERM	99
+# define CDOWN		98
+# define CUP		97
+# define CLEFT		96
+# define CRIGHT		95
 
-#define CNT_TERM 3
+char g_buf[512];
+char *g_left;
+char *g_clear;
+char *g_up;
+char *g_down;
+char *g_right;
+char *g_save;
+char *g_reset;
 
 typedef struct	s_window
 {
@@ -61,13 +72,14 @@ typedef struct	s_window
 
 typedef struct	s_terminal
 {
-    int			input;
-    int			(*f)(t_window *, t_llist *,char *);
+	int			input;
+	int			(*f)(t_window *, t_llist *, char *);
 }				t_terminal;
 
+int				init_varfcurs();
 
 int				ft_puts(int c);
-int				termcaps(t_llist *env , char **line, int lenght_prompt);
+int				termcaps(t_llist *env, char **line, int lenght_prompt);
 void			bring_back_shell(struct termios *term);
 
 t_llist			*created_path(int *tabulation, t_llist *e);
@@ -76,10 +88,12 @@ char			*depushline(char *line, t_window *win);
 char			*push_line(char c, char *line, t_window *win);
 char			*tabulation(char *line, t_window *win);
 
-
-int				termc_ctrl(char *line, t_window *win, t_llist *e, int *code_term);
-
+int				termc_ctrl(char *line, t_window *win, t_llist *e,
+							int *code_term);
 int				ft_space(t_window *win, t_llist *e, char *line);
 int				ft_del(t_window *win, t_llist *e, char *line);
 int				ft_search(t_window *win, t_llist *e, char *line);
+
+void			move_cursr(t_window *win, int mode, int iteration);
+
 #endif
