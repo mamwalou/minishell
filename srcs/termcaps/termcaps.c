@@ -6,16 +6,17 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/05 23:55:35 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/06 18:34:49 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
-void		init_term(struct termios *term, t_llist *e, t_window *data, int len)
+void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 {
 	char				*name_term;
+
 
 	if ((name_term = search_env(e, "TERM=")) == NULL)
 		return ;
@@ -32,6 +33,8 @@ void		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 	data->pos[0] = len + 1;
 	data->pos[1] = data->lenght;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
+		return ;
+	if ((init_varfcurs()) == -1)
 		return ;
 }
 
@@ -75,6 +78,7 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt)
 		}
 		else if ((code = termc_ctrl(*line, &win, env, &code_to_return)) > 0)
 			*line = parsing_term(code, *line, &win);
+		ft_putnbr(win.pos[0]);
 	}
 	if (code_to_return + RETURN == TAB + RETURN)
 		tabulation(*line, &win);
