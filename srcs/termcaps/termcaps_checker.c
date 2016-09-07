@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 23:57:40 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/05 23:57:41 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/06 23:41:54 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static const t_terminal    g_tableau[CNT_TERM] =
 {
     {DELETE, ft_del},
     {SPACE, ft_space},
+	{CTRL_L, ft_clear},
 	{TAB, ft_search},
 };
 
@@ -32,14 +33,21 @@ int			ft_puts(int c)
 	return (0);
 }
 
+int			ft_clear(t_window *win, t_llist *e, char *line)
+{
+	tputs(g_clear, 1, ft_puts);
+	prompt(e);
+	return (CTRL_L);
+}
+
 int			ft_del(t_window *win, t_llist *e, char *line)
 {
 	if (win->lineshell > 0)
 	{
 		win->lineshell--;
-		tputs(tgoto(tgetstr("le", 0), win->pos[0], win->pos[1]), 1, ft_puts);
+		move_cursr(win, CLEFT, 1);
 		ft_putchar(' ');
-		tputs(tgoto(tgetstr("le", 0), win->pos[0], win->pos[1]), 1, ft_puts);
+		move_cursr(win, CLEFT, 1);
 	}
 	return (DELETE);
 }

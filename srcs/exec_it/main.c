@@ -6,11 +6,12 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/06 18:55:20 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 01:39:54 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/termcaps/termcaps.h"
 #include <time.h>
 
 int 			prompt(t_llist *env)
@@ -32,19 +33,19 @@ int					main(int argc, char **argv, char **environ)
 {
 	t_memory		memory;
 	t_llist			*env;
+	t_window		win;
 	char			*line;
 	int				ctrl;
-	int				lenght_prompt;
 
 	ctrl = 0;
 	env = NULL;
 	init_memory(&memory);
+	win.set = 0;
 	while (ctrl == 0)
 	{
 		my_setenv(&env, environ, NULL);
-		lenght_prompt = prompt(env);
 		line = NULL;
-		if ((termcaps(env, &line, lenght_prompt)) == -1)
+		if ((termcaps(env, &line, prompt(env), &win)) == -1)
 			return (-1);
 		ft_putchar('\n');
 		if (line)

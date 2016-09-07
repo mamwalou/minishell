@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 23:57:32 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/06 18:55:21 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 02:26:38 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,23 @@ void 				list_files(t_window *win, t_llist *dline, int tabulation)
 	count = 1;
 	lenght_line = 0;
 	ft_putchar('\n');
+	tputs(tgetstr("sc", NULL), 1, ft_puts);
 	while (dline)
 	{
 		if (lenght_line >= win->column - 20)
 		{
-			ft_putchar('\n');
+			move_cursr(win, CDOWN, 1);
 			lenght_line = 0;
 			count++;
 		}
 		lenght_line += putwithtab(dline->content, tabulation);
 		dline = dline->next;
 	}
+	tputs(tgetstr("rc", NULL), 1, ft_puts);
 	move_cursr(win, CUP, count);
+	move_cursr(win, CRIGHT, win->pos[0] + 1);
+	/*tputs(tgetstr("dl", NULL), 1, ft_puts);
+	tputs(tgetstr("al", NULL), 1, ft_puts);*/
 }
 
 void 				path_found(t_window *win, t_llist *e, char *line)

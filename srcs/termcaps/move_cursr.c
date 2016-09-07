@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 23:57:26 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/06 18:55:17 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 02:06:20 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int 			init_varfcurs()
 		|| !(g_up = tgetstr("up", NULL))
 		|| !(g_down = tgetstr("do", NULL))
 		|| !(g_right = tgetstr("nd", NULL))
-		|| !(g_left = tgetstr("le", NULL))
-		|| !(g_save = tgetstr("sc", NULL))
-		|| !(g_resline = tgetstr("sc", NULL))
-		|| !(g_reset = tgetstr("rc", NULL)))
+		|| !(g_left = tgetstr("le", NULL)))
 			return (-1);
 	return (1);
 }

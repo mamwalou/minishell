@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/06 17:56:08 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 01:33:47 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define TAB		 9
 # define CTRL_SPACE  0
 # define CTRL_X      24
-# define CNT_TERM	99
+# define CNT_TERM	4
 # define CDOWN		98
 # define CUP		97
 # define CLEFT		96
@@ -59,15 +59,18 @@ char *g_down;
 char *g_right;
 char *g_save;
 char *g_reset;
+char *g_resline;
 
 typedef struct	s_window
 {
+	int			begin;
 	int			lenght;
 	int			column;
 	int			lineshell;
 	char		*save;
 	char		buffer[4];
-	int			pos[1];
+	int			pos[2];
+	int			set;
 }				t_window;
 
 typedef struct	s_terminal
@@ -76,10 +79,11 @@ typedef struct	s_terminal
 	int			(*f)(t_window *, t_llist *, char *);
 }				t_terminal;
 
+int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win);
+
 int				init_varfcurs();
 
 int				ft_puts(int c);
-int				termcaps(t_llist *env, char **line, int lenght_prompt);
 void			bring_back_shell(struct termios *term);
 
 t_llist			*created_path(int *tabulation, t_llist *e);
@@ -93,6 +97,7 @@ int				termc_ctrl(char *line, t_window *win, t_llist *e,
 int				ft_space(t_window *win, t_llist *e, char *line);
 int				ft_del(t_window *win, t_llist *e, char *line);
 int				ft_search(t_window *win, t_llist *e, char *line);
+int				ft_clear(t_window *win, t_llist *e, char *line);
 
 void			move_cursr(t_window *win, int mode, int iteration);
 

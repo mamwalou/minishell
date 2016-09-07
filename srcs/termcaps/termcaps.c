@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/06 18:34:49 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 01:47:55 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 {
 	char				*name_term;
 
-
 	if ((name_term = search_env(e, "TERM=")) == NULL)
 		return ;
 	if (tgetent(NULL, name_term) == ERR)
 		return ;
 	if (tcgetattr(0, term) == -1)
 		return ;
+	ft_bzero(data->buffer, 4);
 	term->c_lflag &= ~(ICANON|ECHO|ISIG);
 	term->c_cc[VMIN] = 1;
 	term->c_cc[VTIME] = 0;
@@ -31,7 +31,6 @@ void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 	data->column = tgetnum("co");
 	data->lineshell = 0;
 	data->pos[0] = len + 1;
-	data->pos[1] = data->lenght;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return ;
 	if ((init_varfcurs()) == -1)
@@ -56,32 +55,32 @@ void 		termcaps_exit(const char *exit_msg, struct termios *term)
 	exit (-1);
 }
 
-int			termcaps(t_llist *env, char **line, int lenght_prompt)
+int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win)
 {
 	struct termios		term;
-	t_window			win;
 	int					code;
 	int					code_to_return;
 
 	code_to_return = 0;
-	init_term(&term, env, &win, lenght_prompt);
-	while (win.buffer[0] != RETURN)
+	init_term(&term, env, win, lenght_prompt);
+	while (win->buffer[0] != RETURN)
 	{
-		ft_bzero(win.buffer, 4);
-		read(0, win.buffer, 4);
-		if (win.buffer[0] == CTRL_D)
+		ft_bzero(win->buffer, 4);
+		read(0, win->buffer, 4);
+		if (win->buffer[0] == CTRL_D)
 			termcaps_exit("close", &term);
-		if ((ft_isalnum(win.buffer[0])) == 1 || (my_ctrl(win.buffer[0])) == 1)
+		if ((ft_isalnum(win->buffer[0])) == 1 || (my_ctrl(win->buffer[0])) == 1)
 		{
-			*line = push_line(win.buffer[0], *line, &win);
-			ft_putchar(win.buffer[0]);
+			*line = push_line(win->buffer[0], *line, win);
+			ft_putchar(win->buffer[0]);
 		}
-		else if ((code = termc_ctrl(*line, &win, env, &code_to_return)) > 0)
-			*line = parsing_term(code, *line, &win);
-		ft_putnbr(win.pos[0]);
+		else if ((code = termc_ctrl(*line, win, env, &code_to_return)) > 0)
+			*line = parsing_term(code, *line, win);
 	}
 	if (code_to_return + RETURN == TAB + RETURN)
-		tabulation(*line, &win);
+		tabulation(*line, win);
 	bring_back_shell(&term);
+	ft_putnbr(win->pos[1]);
+	win->pos[1]++;
 	return (0);
 }

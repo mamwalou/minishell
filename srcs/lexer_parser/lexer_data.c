@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/06 16:45:40 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 00:12:31 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,10 @@ char			*bin_checkout(char *line, t_llist *env)
 	char		*cpy;
 	int			lenght_bin;
 	int			i;
-	int			tableau[]= {':', 0};
+	int			tableau[]= {58, 0};
 
 	i = 0;
 	cpy = NULL;
-	bin = NULL;
 	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), tableau);
 	while (i < lenght_bin)
 	{
