@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_isdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/14 13:23:35 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/07 17:55:26 by sbeline          ###   ########.fr       */
+/*   Created: 2016/09/07 16:36:51 by sbeline           #+#    #+#             */
+/*   Updated: 2016/09/07 16:40:42 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-t_llist		*ft_lstnew(void const *content, size_t content_size)
+int					is_dir(char *s)
 {
-	t_llist	*ptr;
-	void	*cnt;
+	struct stat		buf;
+	int				i;
 
-	cnt = (void*)ft_memalloc(content_size + 1);
-	cnt = ft_memcpy(cnt, content, content_size);
-	ptr = (t_llist*)ft_memalloc(sizeof(t_llist));
-	ptr->content_size = content_size;
-	ptr->content = cnt;
-	ptr->maillon_nb = 0;
-	ptr->next = NULL;
-	return (ptr);
+	i = 0;
+	if (stat(s, &buf) == -1)
+		return (-1);
+	i = S_ISREG(buf.st_mode) ? 50 : i;
+	i = S_ISDIR(buf.st_mode) ? 60 : i;
+	i = S_ISLNK(buf.st_mode) ? 70 : i;
+	return (i);
 }

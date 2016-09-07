@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 23:57:40 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/06 23:41:54 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 16:40:46 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int			ft_clear(t_window *win, t_llist *e, char *line)
 {
 	tputs(g_clear, 1, ft_puts);
 	prompt(e);
+	if (line)
+		ft_putstr(line);
 	return (CTRL_L);
 }
 

@@ -1,33 +1,28 @@
 #include "../../includes/minishell.h"
 
-static int			find_withparsing(char *VAR, char concat, char *line)
-{
-	char			**cpy;
-	int				tableau[] = {(int)concat, 0};
-
-	if (VAR)
-	{
-		if (ft_strsplit(&cpy, VAR, tableau) > 1)
-			return (-1);
-		return (0);
-	}
-	return (-1);
-}
-
 int			define_variable(t_memory *memory, char *line)
 {
-	if ((find_withparsing(memory->VAR, ';', line)) == 0)
+	char			**cpy;
+	int				tableau[] = {';', 0};
+
+	if (memory->var)
 	{
-		memory->VAR = ft_strtrijoin(line, ";", memory->VAR);
+		memory->var = ft_strtrijoin(line, ";", memory->var);
 		return (7);
 	}
-	memory->VAR = ft_strdup(line);
+	else
+		memory->var = ft_strdup(line);
 	return (6);
+}
 
+int			ft_variable(t_data *data, t_llist *env, t_memory *memory)
+{
+	ft_putendl(memory->var);
+	return (0);
 }
 
 void		init_memory(t_memory *memory)
 {
-	memory->VAR = NULL;
+	memory->var = NULL;
 
 }

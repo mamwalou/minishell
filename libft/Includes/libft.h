@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 17:06:24 by sbeline           #+#    #+#             */
-/*   Updated: 2016/06/17 18:58:54 by salomon          ###   ########.fr       */
+/*   Updated: 2016/09/07 16:40:41 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,24 @@
 # include <time.h>
 # include <wchar.h>
 # include <limits.h>
+# include <stdlib.h>
+# include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/ioctl.h>
+# include <sys/xattr.h>
+# include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <pwd.h>
+# include <grp.h>
+# include <stdio.h>
+# include <termios.h>
+# include <unistd.h>
 # define BUF_SIZE 1496
+# define FILES 50
+# define REP 60
+# define LINK 70
 
 
 typedef	struct		s_fd
@@ -32,7 +49,7 @@ typedef	struct		s_fd
 	struct s_fd		*next;
 }					t_fd;
 
-
+int					is_dir(char *s);
 char				*ft_strndup(char *s, int begin, int end);
 char				*ft_strtrijoin(const char *s1, const char *s2,
 									const char *s3);

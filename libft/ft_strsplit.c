@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:19:40 by sbeline           #+#    #+#             */
-/*   Updated: 2016/06/17 18:59:22 by salomon          ###   ########.fr       */
+/*   Updated: 2016/09/07 00:15:06 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*my_strrchr(const char *s, int *t)
 	while ((cmp(s[i], t) == -1) && s[i])
 		i++;
 	if ((cmp(s[i], t) == 0))
-		return ((char *)&s[i + 1]);
+		return ((char *)&s[i]);
 	return (NULL);
 }
 
@@ -88,11 +88,14 @@ int				ft_strsplit(char ***dst, char const *s, int *t)
 	int len;
 
 
+
 	if (!*s)
 		return (0);
 	if ((len = find_occur(s, t)) == 0)
 		return (-1);
+
 	*dst = malloc(sizeof(char*) * (len + 1));
+
 	i = 0;
 	while (i < len)
 	{

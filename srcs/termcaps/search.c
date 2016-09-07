@@ -6,30 +6,36 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 23:57:32 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/07 02:26:38 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 17:07:52 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
-int					count_line(char *line, int lenght)
+int					count_line(char *s, int lenght, char **ptr)
 {
-	int i;
+	int			ret;
+	int			i;
 
+	ret = 0;
 	i = 0;
-	while (i < lenght)
-	{
-		if (line[i] == ' ')
-		{
-			if (i == lenght)
-				return (0);
-			else
-				return (1);
-		}
+	lenght--;
+	while (s[i] == ' ' && s[i])
 		i++;
+	while (s[i])
+	{
+		*ptr = &s[i];
+		while ((ft_isalnum(s[i]) || my_ctrl(s[i])) && s[i])
+			i++;
+		if (s[i] == ' ' || !s[i])
+		{
+			while (s[i] == ' ')
+				i++;
+			ret++;
+		}
 	}
-	return (0);
+	return(ret);
 }
 
 int					putwithtab(char *line, int space)
@@ -68,35 +74,49 @@ void 				list_files(t_window *win, t_llist *dline, int tabulation)
 	tputs(tgetstr("rc", NULL), 1, ft_puts);
 	move_cursr(win, CUP, count);
 	move_cursr(win, CRIGHT, win->pos[0] + 1);
-	/*tputs(tgetstr("dl", NULL), 1, ft_puts);
-	tputs(tgetstr("al", NULL), 1, ft_puts);*/
 }
 
-void 				path_found(t_window *win, t_llist *e, char *line)
+void 				path_found(t_window *win, t_llist *e, char *line, char *lw)
 {
 	t_llist			*dline;
 	char			*save;
+	char			*path;
 	int				tabulation;
 
 	dline = NULL;
 	tabulation = 0;
-	dline = created_path(&tabulation, e);
+	path = NULL;
+	if (lw == NULL)
+		dline = created_path(&tabulation, e, search_env(e, "PWD="));
+	else
+	{
+		if ((is_dir(ft_strtrijoin(search_env(e, "PWD="), "/",lw))) == REP)
+		{
+			path = ft_strtrijoin(search_env(e, "PWD="), "/",lw);
+			dline = created_path(&tabulation, e, path);
+			free(path);
+			list_files(win, dline, tabulation);
+			return ;
+		}
+		exit(1);
+	}
 	list_files(win, dline, tabulation);
 }
 
 int					ft_search(t_window *win, t_llist *e, char *line)
 {
+	int				cptr;
+	char			*last_word;
+
+	cptr = 0;
 	if (win->lineshell == 0)
-	{
-		ft_putchar('\t');
 		return (0);
-	}
-	if (count_line(line, win->lineshell) > 0)
+	if ((cptr = count_line(line, win->lineshell, &last_word)) > 0)
 	{
-		if (line[win->lineshell - 1] == ' ')
-			path_found(win, e, line);
-		else if (ft_isalnum(line[win->lineshell - 1]) == 1)
-			path_found(win, e, line);
+		if (cptr == 1 && line[win->lineshell - 1] == ' ')
+			path_found(win, e, line, NULL);
+		else if (cptr > 1)
+			path_found(win, e, line, last_word);
 	}
 	return (TAB);
 }

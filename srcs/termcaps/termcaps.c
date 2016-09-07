@@ -6,12 +6,30 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 01:47:55 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 18:16:33 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
+
+void 		bring_back_shell(struct termios *term)
+{
+	if (tcgetattr(0, term) == -1)
+		return ;
+	term->c_lflag = (ICANON|ECHO|ISIG);
+	if (tcsetattr(0, 0, term) == -1)
+		return ;
+}
+
+void 		termcaps_exit(const char *exit_msg, struct termios *term)
+{
+	ft_putchar('\n');
+	if (exit_msg)
+		ft_putendl(exit_msg);
+	bring_back_shell(term);
+	exit (-1);
+}
 
 void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 {
@@ -35,24 +53,6 @@ void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 		return ;
 	if ((init_varfcurs()) == -1)
 		return ;
-}
-
-void 		bring_back_shell(struct termios *term)
-{
-	if (tcgetattr(0, term) == -1)
-		return ;
-	term->c_lflag = (ICANON|ECHO|ISIG);
-	if (tcsetattr(0, 0, term) == -1)
-		return ;
-}
-
-void 		termcaps_exit(const char *exit_msg, struct termios *term)
-{
-	ft_putchar('\n');
-	if (exit_msg)
-		ft_putendl(exit_msg);
-	bring_back_shell(term);
-	exit (-1);
 }
 
 int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win)
@@ -80,7 +80,6 @@ int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win)
 	if (code_to_return + RETURN == TAB + RETURN)
 		tabulation(*line, win);
 	bring_back_shell(&term);
-	ft_putnbr(win->pos[1]);
 	win->pos[1]++;
 	return (0);
 }

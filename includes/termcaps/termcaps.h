@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 01:33:47 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 16:28:20 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define CUP		97
 # define CLEFT		96
 # define CRIGHT		95
+# define JTAB		100
 
 char g_buf[512];
 char *g_left;
@@ -78,7 +79,6 @@ typedef struct	s_terminal
 	int			input;
 	int			(*f)(t_window *, t_llist *, char *);
 }				t_terminal;
-
 int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win);
 
 int				init_varfcurs();
@@ -86,7 +86,7 @@ int				init_varfcurs();
 int				ft_puts(int c);
 void			bring_back_shell(struct termios *term);
 
-t_llist			*created_path(int *tabulation, t_llist *e);
+t_llist			*created_path(int *tabulation, t_llist *e, char *value);
 char			*parsing_term(int code, char *line, t_window *win);
 char			*depushline(char *line, t_window *win);
 char			*push_line(char c, char *line, t_window *win);

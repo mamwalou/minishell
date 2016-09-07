@@ -12,7 +12,6 @@ SRC_NAME = main.c \
 			manage_error.c \
 			my_unsetenv.c \
 			memory.c \
-			ft_variables.c \
 			search.c \
 			auto_compl.c \
 			move_cursr.c \

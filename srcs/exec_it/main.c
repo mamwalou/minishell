@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 01:39:54 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 18:14:44 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int					main(int argc, char **argv, char **environ)
 			ctrl = exec_cmd(&memory, env, line);
 		free(line);
 	}
+	ft_lstdel(&env, ft_bzero);
 	return (0);
 }

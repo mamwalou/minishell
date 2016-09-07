@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 01:39:55 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 20:15:42 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,23 @@ int				my_setenv(t_llist **env,char **environ, const char *value)
 	return (-1);
 }
 
-static void 	export_var(t_llist **env, char *VAR)
+void 	export_var(t_llist **env, char *var)
 {
 	char 		*tmp;
+	char		*ptr;
 	int			i;
 
 	i = 0;
-	while (VAR[i] != ';' && VAR[i])
+	ptr = var;
+	while (var[i])
 		i++;
-	exit(1);
-	//ft_lstadd(env, ft_lstnew(ft_strncpy(VAR, NULL, i), i));
+	while ((ptr = ft_strrchr(var, ';')) != NULL)
+	{
+		ft_lstadd(env, ft_lstnew(var, ptr - var - 1));
+		var = ptr;
+	}
+	if (ptr == NULL)
+		ft_lstadd(env, ft_lstnew(var, &var[i] - var));
 }
 
 int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
@@ -56,7 +63,9 @@ int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
 	t_llist *ptr;
 
 	ptr = env;
-	if (memory->VAR)
-		export_var(&env, memory->VAR);
+	if (memory->var)
+		export_var(&env, memory->var);
+	else
+		return (32);
 	return(0);
 }

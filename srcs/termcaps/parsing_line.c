@@ -6,13 +6,13 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/17 18:10:34 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/06 23:35:18 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 16:32:50 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 
-t_llist					*created_path(int *tabulation, t_llist *e)
+t_llist					*created_path(int *tabulation, t_llist *e, char *value)
 {
 	DIR				*ptr;
 	struct dirent 	*fl;
@@ -20,7 +20,7 @@ t_llist					*created_path(int *tabulation, t_llist *e)
 	int				lenght;
 
 	ret = 0;
-	if ((ptr = opendir(search_env(e, "PWD="))) == NULL)
+	if ((ptr = opendir(value)) == NULL)
 		exit (1);
 	while ((fl = readdir(ptr)) != NULL)
 	{

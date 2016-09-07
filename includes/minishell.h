@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/03 14:45:09 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/07 20:16:10 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct				s_data
 
 typedef struct				s_memory
 {
-	char					*VAR;
+	char					*var;
 }							t_memory;
 
 typedef struct				s_built
@@ -53,7 +53,7 @@ int			ft_unsetenv(t_data *data, t_llist *env, t_memory *memory);
 int			ft_setenv(t_data *data, t_llist *env, t_memory *memory);
 int			my_setenv(t_llist **env,char **environ, const char *value);
 char		**my_env(t_llist *env);
-
+void 		export_var(t_llist **env, char *var);
 					/*exect_it*/
 int			exec_cmd(t_memory *memory,t_llist *env, char *line);
 
