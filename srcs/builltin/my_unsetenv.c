@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int		unenv(char *unset, t_llist *env)
+int		unenv(char *unset, t_llist *env)
 {
 	t_llist 	*ptr;
 	t_llist		*save;
@@ -27,11 +27,5 @@ static int		unenv(char *unset, t_llist *env)
 
 int				ft_unsetenv(t_data *data, t_llist *env, t_memory *memory)
 {
-	t_llist		*ptr;
-	char		*buf;
-
-	ptr = env;
-	buf = ft_memalloc(UCHAR_MAX);
-	getcwd(buf, UCHAR_MAX);
 	return (unenv(data->option[0], env));
 }

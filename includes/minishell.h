@@ -54,6 +54,8 @@ int			ft_setenv(t_data *data, t_llist *env, t_memory *memory);
 int			my_setenv(t_llist **env,char **environ, const char *value);
 char		**my_env(t_llist *env);
 void 		export_var(t_llist **env, char *var);
+int			unenv(char *unset, t_llist *env);
+
 					/*exect_it*/
 int			exec_cmd(t_memory *memory,t_llist *env, char *line);
 
