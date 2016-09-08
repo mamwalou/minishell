@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 14:16:31 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 15:04:36 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int				my_setenv(t_llist **env, char **environ, const char *value)
 	{
 		ft_lstadd(env, ft_lstnew(ft_strjoin("PWD=", buf),
 					ft_strlen(ft_strjoin("PWD=", buf))));
-		ft_env(NULL, *env, NULL);
 	}
 	if (!value && *env)
 		return (0);

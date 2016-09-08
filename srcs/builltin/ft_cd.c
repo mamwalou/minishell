@@ -6,7 +6,7 @@ static int			ft_cdoneopt(t_data *data, t_llist *env, char *cpy)
 
 	buf = ft_memalloc(UCHAR_MAX);
 	getcwd(buf, UCHAR_MAX);
-	chdir(ft_strtrijoin(search_env(env, "PWD="), "/", data->option[0]));
+	chdir(data->option[0]);
 	unenv("PWD=", env);
 	unenv("OLDPWD=", env);
 	free(buf);
@@ -14,8 +14,46 @@ static int			ft_cdoneopt(t_data *data, t_llist *env, char *cpy)
 	getcwd(buf, UCHAR_MAX);
 	export_var(&env, ft_strjoin("PWD=", buf));
 	export_var(&env, ft_strjoin("OLDPWD=", cpy));
+	free(buf);
+	return (0);
+}
+
+static int			ft_cdone2opt(t_data *data, t_llist *env, char *cpy)
+{
+	char			*buf;
+
 	buf = ft_memalloc(UCHAR_MAX);
 	getcwd(buf, UCHAR_MAX);
+	chdir("..");
+	if ((is_dir(data->option[0]) == REP) && (is_dir(data->option[1]) == REP))
+	{
+		chdir(data->option[1]);
+		ft_putendl(ft_strtrijoin(search_env(env, "HOME="), "/",
+					data->option[1]));
+		unenv("PWD=", env);
+		unenv("OLDPWD=", env);
+		free(buf);
+		buf = ft_memalloc(UCHAR_MAX);
+		getcwd(buf, UCHAR_MAX);
+		export_var(&env, ft_strjoin("PWD=", buf));
+		export_var(&env, ft_strjoin("OLDPWD=", cpy));
+		free(buf);
+		return (0);
+	}
+	chdir("buf");
+	return (43);
+}
+
+static int			revers_cd(t_llist *env, char *newold)
+{
+	char			*cpy;
+
+	cpy = ft_strdup(search_env(env, "OLDPWD="));
+	chdir(cpy);
+	unenv("PWD=", env);
+	unenv("OLDPWD=", env);
+	export_var(&env, ft_strjoin("PWD=", cpy));
+	export_var(&env, ft_strjoin("OLDPWD=", newold));
 	return (0);
 }
 
@@ -35,11 +73,15 @@ int					ft_cd(t_data *data, t_llist *env, t_memory *memory)
 		export_var(&env, ft_strjoin("OLDPWD=", cpy));
 		return (1);
 	}
+	if (data->option[0][0] == '-')
+		return (revers_cd(env, cpy));
 	while (data->option[i])
 		i++;
 	if (i > 2)
 		return (48);
 	if ((i == 1) && (is_dir(data->option[0]) == REP))
 		return (ft_cdoneopt(data, env, cpy));
-	return (1);
+	else if (i == 2)
+		return (ft_cdone2opt(data, env, cpy));
+	return (66);
 }

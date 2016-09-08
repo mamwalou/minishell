@@ -17,13 +17,18 @@ int					manage_error(int code_err, t_data *data, t_llist *env)
 		ft_putstr(data->option[0]);
 		ft_putendl(" :PATH variable not found");
 	}
-	if (code_err == 231)
+	if (code_err == 43)
 	{
 		ft_putstr("cd: string not in pwd:");
 		ft_putendl(data->option[0]);
 	}
 	if (code_err == 45)
 		ft_putendl("Use unset/set 'variable'");
+	if (code_err == 66)
+	{
+		ft_putstr("cd: no such file or directory: ");
+		ft_putendl(data->option[0]);
+	}
 	if (code_err == 42)
 	{
 		ft_putendl("Good bye, have fun");
