@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/15 17:06:24 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/07 16:40:41 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 15:58:01 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 # define REP 60
 # define LINK 70
 
-
 typedef	struct		s_fd
 {
 	int				fd;
@@ -62,10 +61,10 @@ void				ft_printunint(unsigned int n);
 void				ft_printlong(long long ll);
 int					ft_lenghstrwchar(const wchar_t *wc);
 int					ft_lenghtwchar(wchar_t wc);
-void 				ft_putwstr(wchar_t *s);
-void 				ft_putwstr_fd(wchar_t *s, int fd);
-void 				ft_putwchar(wchar_t wc);
-void 				ft_putwchar_fd(wchar_t wc, int fd);
+void				ft_putwstr(wchar_t *s);
+void				ft_putwstr_fd(wchar_t *s, int fd);
+void				ft_putwchar(wchar_t wc);
+void				ft_putwchar_fd(wchar_t wc, int fd);
 size_t				ft_nbsize(int nb);
 void				ft_putstr_rev(char *s, int size);
 int					ft_strnb(void *var);
@@ -132,7 +131,7 @@ char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strnjoin(char *s1, char *s2, int begin,int end);
+char				*ft_strnjoin(char *s1, char *s2, int begin, int end);
 char				*ft_strtrim(char const *s);
 int					ft_strsplit(char ***dst, char const *s, int *t);
 int					ft_strisdigit(char *str);

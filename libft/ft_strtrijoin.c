@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrijoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/18 17:23:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/05/18 17:26:59 by salomon          ###   ########.fr       */
+/*   Updated: 2016/09/08 15:56:23 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
-
 
 char		*ft_strtrijoin(const char *s1, const char *s2, const char *s3)
 {

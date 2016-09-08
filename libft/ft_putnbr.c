@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbeline <sbeline@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/05 13:18:06 by sbeline           #+#    #+#             */
-/*   Updated: 2016/05/13 16:32:34 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 15:57:04 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_putnbr(int n)
 	}
 	if (n < 0)
 	{
-		ft_putchar ('-');
+		ft_putchar('-');
 		n = -n;
 	}
 	if (n >= 10)

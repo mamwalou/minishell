@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:19:40 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/07 00:15:06 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 15:55:16 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ static int		cmp(char c, int *t)
 		t++;
 	}
 	return (-1);
-
 }
 
-static char	*my_strrchr(const char *s, int *t)
+static char		*my_strrchr(const char *s, int *t)
 {
-	size_t	i;
+	size_t		i;
 
 	i = 0;
 	while ((cmp(s[i], t) == -1) && s[i])
@@ -55,7 +54,7 @@ static int		ft_stspchr(char *s, int *t)
 			return (i - 1);
 		}
 	}
-	return(i);
+	return (i);
 }
 
 static int		find_occur(const char *s, int *t)
@@ -78,24 +77,20 @@ static int		find_occur(const char *s, int *t)
 			ret++;
 		}
 	}
-	return(ret);
+	return (ret);
 }
 
 int				ft_strsplit(char ***dst, char const *s, int *t)
 {
-	int pos;
-	int i;
-	int len;
-
-
+	int			pos;
+	int			i;
+	int			len;
 
 	if (!*s)
 		return (0);
 	if ((len = find_occur(s, t)) == 0)
 		return (-1);
-
 	*dst = malloc(sizeof(char*) * (len + 1));
-
 	i = 0;
 	while (i < len)
 	{
