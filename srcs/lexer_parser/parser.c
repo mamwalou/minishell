@@ -1,6 +1,27 @@
 #include "../../includes/minishell.h"
 
-void 		free_d(char **dtab, int lenght)
+int			*generate(int c, int c1, int size)
+{
+	int		*tableau;
+
+	tableau = (int*)ft_memalloc(sizeof(int) * size);
+	if (size == 2)
+	{
+		tableau[0] = c;
+		tableau[1] = 0;
+		tableau[2] = 0;
+	}
+	if (size == 3)
+	{
+		tableau[0] = c;
+		tableau[1] = c1;
+		tableau[2] = 0;
+		tableau[2] = 0;
+	}
+	return (tableau);
+}
+
+void		free_d(char **dtab, int lenght)
 {
 	int i;
 
@@ -14,7 +35,7 @@ void 		free_d(char **dtab, int lenght)
 		free(dtab);
 }
 
-int		parser_data(t_llist *env, char **line, t_data **data, t_memory **memory)
+int			parser_data(t_llist *env, char **line, t_data **data, t_memory **me)
 {
 	while (*line)
 	{
@@ -27,8 +48,8 @@ int		parser_data(t_llist *env, char **line, t_data **data, t_memory **memory)
 				return (-1);
 		}
 		if (!ctrl_var(*line))
-			return (define_variable(*memory, *line));
+			return (define_variable(*me, *line));
 		line++;
 	}
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 18:14:44 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:17:43 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 #include "../../includes/termcaps/termcaps.h"
 #include <time.h>
 
-int 			prompt(t_llist *env)
+int					prompt(t_llist *env)
 {
 	int				lenght_prompt;
 
 	lenght_prompt = 0;
-	ft_putstr(ft_strjoin("\033[1;31m", search_env(env, "USER=")));
-	lenght_prompt = ft_strlen(search_env(env, "USER="));
-	ft_putstr("\033[0m:");
-	ft_putstr(ft_strjoin("\033[1;69m", search_env(env, "PWD=")));
-	ft_putstr("\033[0m:");
-	lenght_prompt += ft_strlen(search_env(env, "PWD="));
+	if ((search_env(env, "USER=")))
+	{
+		ft_putstr(ft_strjoin("\033[1;31m", search_env(env, "USER=")));
+		lenght_prompt = ft_strlen(search_env(env, "USER="));
+		ft_putstr("\033[0m:");
+	}
+	if ((search_env(env, "PWD=")))
+	{
+		ft_putstr(ft_strjoin("\033[1;69m", search_env(env, "PWD=")));
+		ft_putstr("\033[0m:");
+		lenght_prompt += ft_strlen(search_env(env, "PWD="));
+	}
 	ft_putstr(" $>");
 	return (lenght_prompt + 3);
 }

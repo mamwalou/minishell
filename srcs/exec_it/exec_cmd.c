@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 00:15:02 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:26:54 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static const t_built	g_builtin[NB_BUILT] =
 	{"cd", ft_cd},
 	{"env", ft_env},
 	{"export", ft_setenv},
-	{"unsetenv", ft_unsetenv},
+	{"unset", ft_unsetenv},
 	{"var", ft_variable},
 };
 
-void 					exect_it(t_data *data, t_llist *env)
+void					exect_it(t_data *data, t_llist *env)
 {
 	pid_t				father;
 
@@ -35,7 +35,7 @@ void 					exect_it(t_data *data, t_llist *env)
 		execve(data->cmd, data->option, NULL);
 }
 
-int			exec_parser(t_data *data, t_llist *env, t_memory *memory)
+int						exec_parser(t_data *data, t_llist *env, t_memory *mem)
 {
 	int		i;
 
@@ -45,7 +45,7 @@ int			exec_parser(t_data *data, t_llist *env, t_memory *memory)
 		while (i < NB_BUILT)
 		{
 			if (!ft_strcmp(g_builtin[i].str, data->cmd))
-				return (g_builtin[i].f(data, env, memory));
+				return (g_builtin[i].f(data, env, mem));
 			i++;
 		}
 	}
@@ -56,17 +56,16 @@ int			exec_parser(t_data *data, t_llist *env, t_memory *memory)
 	return (0);
 }
 
-int 		exec_cmd(t_memory *memory, t_llist *env, char *line)
+int						exec_cmd(t_memory *memory, t_llist *env, char *line)
 {
-	t_data	*data;
-	char	**pline;
-	int		lenght;
-	int		error;
-	int 	tableau[3] = {9, 32, 0};
+	t_data				*data;
+	char				**pline;
+	int					lenght;
+	int					error;
 
 	error = 0;
 	data = NULL;
-	if ((lenght = ft_strsplit(&pline, line, tableau)) == -1)
+	if ((lenght = ft_strsplit(&pline, line, generate(9, 32, 3))) == -1)
 		return (0);
 	if (lenght > 0)
 	{
@@ -77,7 +76,7 @@ int 		exec_cmd(t_memory *memory, t_llist *env, char *line)
 			manage_error(error, data, env);
 		}
 		else if (error < 5)
- 		{
+		{
 			if ((error = exec_parser(data, env, memory)) != 0)
 				return (manage_error(error, data, env));
 		}

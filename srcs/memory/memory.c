@@ -3,7 +3,6 @@
 int			define_variable(t_memory *memory, char *line)
 {
 	char			**cpy;
-	int				tableau[] = {';', 0};
 
 	if (memory->var)
 	{
@@ -24,5 +23,4 @@ int			ft_variable(t_data *data, t_llist *env, t_memory *memory)
 void		init_memory(t_memory *memory)
 {
 	memory->var = NULL;
-
 }

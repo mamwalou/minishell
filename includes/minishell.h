@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 20:16:10 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:29:50 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ int			operator_filters(char *line);
 int			define_variable(t_memory *memory, char *line);
 void		init_memory(t_memory *memory);
 
+int			*generate(int c, int c1, int size);
 #endif

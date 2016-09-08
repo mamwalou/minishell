@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 20:15:42 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:16:31 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_llist			*build_env(char **environ)
 {
-	t_llist *ret;
+	t_llist		*ret;
 
 	ret = NULL;
 	while (*environ)
@@ -25,12 +25,22 @@ t_llist			*build_env(char **environ)
 	return (ret);
 }
 
-int				my_setenv(t_llist **env,char **environ, const char *value)
+int				my_setenv(t_llist **env, char **environ, const char *value)
 {
+	char		*buf;
+
+	buf = ft_memalloc(UCHAR_MAX);
+	getcwd(buf, UCHAR_MAX);
 	if (!value && !*env)
 	{
 		*env = build_env(environ);
 		return (1);
+	}
+	if ((search_env(*env, "PWD=")) == NULL)
+	{
+		ft_lstadd(env, ft_lstnew(ft_strjoin("PWD=", buf),
+					ft_strlen(ft_strjoin("PWD=", buf))));
+		ft_env(NULL, *env, NULL);
 	}
 	if (!value && *env)
 		return (0);
@@ -39,9 +49,9 @@ int				my_setenv(t_llist **env,char **environ, const char *value)
 	return (-1);
 }
 
-void 	export_var(t_llist **env, char *var)
+void			export_var(t_llist **env, char *var)
 {
-	char 		*tmp;
+	char		*tmp;
 	char		*ptr;
 	int			i;
 
@@ -67,5 +77,5 @@ int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
 		export_var(&env, memory->var);
 	else
 		return (32);
-	return(0);
+	return (0);
 }

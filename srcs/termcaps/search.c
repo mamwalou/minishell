@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 23:57:32 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/07 17:07:52 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:36:32 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int					count_line(char *s, int lenght, char **ptr)
 {
-	int			ret;
-	int			i;
+	int				ret;
+	int				i;
 
 	ret = 0;
 	i = 0;
@@ -35,12 +35,12 @@ int					count_line(char *s, int lenght, char **ptr)
 			ret++;
 		}
 	}
-	return(ret);
+	return (ret);
 }
 
 int					putwithtab(char *line, int space)
 {
-	int 			erg;
+	int				erg;
 	int				lght;
 
 	lght = ft_strlen(line);
@@ -51,7 +51,7 @@ int					putwithtab(char *line, int space)
 	return (space - lght + ft_strlen(line));
 }
 
-void 				list_files(t_window *win, t_llist *dline, int tabulation)
+void				list_files(t_window *win, t_llist *dline, int tabulation)
 {
 	int				count;
 	int				lenght_line;
@@ -76,7 +76,7 @@ void 				list_files(t_window *win, t_llist *dline, int tabulation)
 	move_cursr(win, CRIGHT, win->pos[0] + 1);
 }
 
-void 				path_found(t_window *win, t_llist *e, char *line, char *lw)
+void				path_found(t_window *win, t_llist *e, char *line, char *lw)
 {
 	t_llist			*dline;
 	char			*save;
@@ -90,9 +90,9 @@ void 				path_found(t_window *win, t_llist *e, char *line, char *lw)
 		dline = created_path(&tabulation, e, search_env(e, "PWD="));
 	else
 	{
-		if ((is_dir(ft_strtrijoin(search_env(e, "PWD="), "/",lw))) == REP)
+		if ((is_dir(ft_strtrijoin(search_env(e, "PWD="), "/", lw))) == REP)
 		{
-			path = ft_strtrijoin(search_env(e, "PWD="), "/",lw);
+			path = ft_strtrijoin(search_env(e, "PWD="), "/", lw);
 			dline = created_path(&tabulation, e, path);
 			free(path);
 			list_files(win, dline, tabulation);

@@ -6,13 +6,13 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 18:08:58 by sbeline           #+#    #+#             */
-/*   Updated: 2016/09/07 13:49:39 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:44:25 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 
-char 		*tabulation(char *line, t_window *win)
+char		*tabulation(char *line, t_window *win)
 {
 	move_cursr(win, CDOWN, 1);
 	ft_putstr("in");

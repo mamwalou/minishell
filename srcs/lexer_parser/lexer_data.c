@@ -6,15 +6,15 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 16:32:48 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:27:36 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		ctrl_var(char *line)
+int			ctrl_var(char *line)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (ft_isalpha(line[i]))
@@ -24,10 +24,10 @@ int		ctrl_var(char *line)
 	return (1);
 }
 
-int		operator_filters(char *line)
+int			operator_filters(char *line)
 {
-	char		*tableau[8];
-	int			i;
+	char	*tableau[8];
+	int		i;
 
 	tableau[0] = ">";
 	tableau[1] = "<";
@@ -53,19 +53,20 @@ int			my_ctrl(int test)
 		|| test == ';'
 		|| test == '<'
 		|| test == '>'
-	 	|| test == '&'
+		|| test == '&'
 		|| test == '='
 		|| test == '/'
+		|| test == '.'
 		|| test == '!')
 		return (1);
 	return (0);
 }
 
-char			*is_bulltin(char *cmd)
+char		*is_bulltin(char *cmd)
 {
 	if (ft_strcmp(cmd, "env") == 0
 		|| ft_strcmp(cmd, "export") == 0
-		|| ft_strcmp(cmd, "unsetenv") == 0
+		|| ft_strcmp(cmd, "unset") == 0
 		|| ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "exit") == 0
 		|| ft_strcmp(cmd, "var") == 0)
@@ -73,27 +74,26 @@ char			*is_bulltin(char *cmd)
 	return (NULL);
 }
 
-char			*bin_checkout(char *line, t_llist *env)
+char		*bin_checkout(char *line, t_llist *env)
 {
-	char		**bin;
-	char		*cpy;
-	int			lenght_bin;
-	int			i;
-	int			tableau[]= {58, 0};
+	char	**b;
+	char	*cpy;
+	int		lenght_bin;
+	int		i;
 
 	i = 0;
 	cpy = NULL;
-	lenght_bin = ft_strsplit(&bin , search_env(env, "PATH"), tableau);
+	lenght_bin = ft_strsplit(&b, search_env(env, "PATH"), generate(58, 0, 2));
 	while (i < lenght_bin)
 	{
-		if ((access(ft_strtrijoin(bin[i], "/", line), X_OK)) == 0)
+		if ((access(ft_strtrijoin(b[i], "/", line), X_OK)) == 0)
 		{
-			cpy = (ft_strtrijoin(bin[i], "/", line));
-			free_d(bin, lenght_bin);
+			cpy = (ft_strtrijoin(b[i], "/", line));
+			free_d(b, lenght_bin);
 			return (cpy);
 		}
 		i++;
 	}
-	free_d(bin, lenght_bin);
-	return(NULL);
+	free_d(b, lenght_bin);
+	return (NULL);
 }

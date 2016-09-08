@@ -2,9 +2,9 @@
 
 static char			**push_option(char *opt, char **save)
 {
-	int			pos;
-	char		**nw_opt;
-	int			count;
+	int				pos;
+	char			**nw_opt;
+	int				count;
 
 	pos = 0;
 	count = 0;
@@ -22,10 +22,10 @@ static char			**push_option(char *opt, char **save)
 	return (nw_opt);
 }
 
-char			**init_option(char *opt, char **save)
+char				**init_option(char *opt, char **save)
 {
-	char		**nw_opt;
-	int			pos;
+	char			**nw_opt;
+	int				pos;
 
 	if (save == NULL)
 	{
@@ -40,9 +40,9 @@ char			**init_option(char *opt, char **save)
 	return (nw_opt);
 }
 
-t_data			*init_data(t_llist *env, char *line)
+t_data				*init_data(t_llist *env, char *line)
 {
-	t_data		*data;
+	t_data			*data;
 
 	data = NULL;
 	data = (t_data*)ft_memalloc(sizeof(t_data));

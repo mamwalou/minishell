@@ -1,8 +1,8 @@
 #include "../../includes/minishell.h"
 
-int		unenv(char *unset, t_llist *env)
+int				unenv(char *unset, t_llist *env)
 {
-	t_llist 	*ptr;
+	t_llist		*ptr;
 	t_llist		*save;
 	t_llist		*to_next;
 
@@ -27,5 +27,7 @@ int		unenv(char *unset, t_llist *env)
 
 int				ft_unsetenv(t_data *data, t_llist *env, t_memory *memory)
 {
-	return (unenv(data->option[0], env));
+	if (data->option != NULL)
+		return (unenv(data->option[0], env));
+	return (45);
 }

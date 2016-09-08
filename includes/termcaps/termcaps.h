@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 16:28:20 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:44:15 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,8 @@ char			*parsing_term(int code, char *line, t_window *win);
 char			*depushline(char *line, t_window *win);
 char			*push_line(char c, char *line, t_window *win);
 char			*tabulation(char *line, t_window *win);
+int				termc_ctrl(char *line, t_window *w, t_llist *e, int *c);
 
-int				termc_ctrl(char *line, t_window *win, t_llist *e,
-							int *code_term);
 int				ft_space(t_window *win, t_llist *e, char *line);
 int				ft_del(t_window *win, t_llist *e, char *line);
 int				ft_search(t_window *win, t_llist *e, char *line);

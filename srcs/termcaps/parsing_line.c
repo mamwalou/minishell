@@ -6,22 +6,22 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/17 18:10:34 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 16:32:50 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:44:25 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 
-t_llist					*created_path(int *tabulation, t_llist *e, char *value)
+t_llist				*created_path(int *tabulation, t_llist *e, char *value)
 {
 	DIR				*ptr;
-	struct dirent 	*fl;
+	struct dirent	*fl;
 	t_llist			*ret;
 	int				lenght;
 
 	ret = 0;
 	if ((ptr = opendir(value)) == NULL)
-		exit (1);
+		exit(1);
 	while ((fl = readdir(ptr)) != NULL)
 	{
 		lenght = ft_strlen(fl->d_name);
@@ -72,8 +72,8 @@ char				*push_line(char c, char *line, t_window *win)
 
 char				*depushline(char *line, t_window *win)
 {
-	int		i;
-	char *ret;
+	int				i;
+	char			*ret;
 
 	if ((ret = (char*)ft_memalloc(win->lineshell)) == NULL)
 		return (NULL);

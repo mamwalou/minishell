@@ -16,7 +16,7 @@ char			*search_env(t_llist *env, const char *value)
 
 char			**my_env(t_llist *env)
 {
-	t_llist 	*ptr;
+	t_llist		*ptr;
 	char		**ret;
 	int			count;
 
@@ -36,7 +36,7 @@ char			**my_env(t_llist *env)
 	return (ret);
 }
 
-int		ft_env(t_data *data, t_llist *env, t_memory *memory)
+int				ft_env(t_data *data, t_llist *env, t_memory *memory)
 {
 	t_llist *ptr;
 

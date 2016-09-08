@@ -1,15 +1,32 @@
 #include "../../includes/minishell.h"
 
-int			ft_cd(t_data *data, t_llist *env, t_memory *memory)
+static int			ft_cdoneopt(t_data *data, t_llist *env, char *cpy)
 {
-	char 	*cpy;
-	char	*buf;
-	int		i;
+	char			*buf;
 
-	i = 1;
-	cpy = search_env(env, "PWD=");
-	ft_putendl(cpy);
-    if (data->option == NULL)
+	buf = ft_memalloc(UCHAR_MAX);
+	getcwd(buf, UCHAR_MAX);
+	chdir(ft_strtrijoin(search_env(env, "PWD="), "/", data->option[0]));
+	unenv("PWD=", env);
+	unenv("OLDPWD=", env);
+	free(buf);
+	buf = ft_memalloc(UCHAR_MAX);
+	getcwd(buf, UCHAR_MAX);
+	export_var(&env, ft_strjoin("PWD=", buf));
+	export_var(&env, ft_strjoin("OLDPWD=", cpy));
+	buf = ft_memalloc(UCHAR_MAX);
+	getcwd(buf, UCHAR_MAX);
+	return (0);
+}
+
+int					ft_cd(t_data *data, t_llist *env, t_memory *memory)
+{
+	char			*cpy;
+	int				i;
+
+	i = 0;
+	cpy = ft_strdup(search_env(env, "PWD="));
+	if (data->option == NULL)
 	{
 		chdir(search_env(env, "HOME="));
 		unenv("PWD=", env);
@@ -22,15 +39,7 @@ int			ft_cd(t_data *data, t_llist *env, t_memory *memory)
 		i++;
 	if (i > 2)
 		return (48);
-	if (is_dir(data->option[i]))
-	{
-		chdir(ft_strtrijoin(search_env(env, "PWD=") , "/", data->option[0]));
-		unenv("PWD=", env);
-		unenv("OLDPWD=", env);
-		buf = ft_memalloc(UCHAR_MAX);
-		getcwd(buf, UCHAR_MAX);
-		export_var(&env, ft_strjoin("PWD=", buf));
-		export_var(&env, ft_strjoin("OLDPWD=", cpy));
-	}
+	if ((i == 1) && (is_dir(data->option[0]) == REP))
+		return (ft_cdoneopt(data, env, cpy));
 	return (1);
 }

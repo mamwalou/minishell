@@ -6,32 +6,32 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 21:46:40 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/07 18:16:33 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/09/08 14:38:20 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps/termcaps.h"
 #include "../../includes/minishell.h"
 
-void 		bring_back_shell(struct termios *term)
+void		bring_back_shell(struct termios *term)
 {
 	if (tcgetattr(0, term) == -1)
 		return ;
-	term->c_lflag = (ICANON|ECHO|ISIG);
+	term->c_lflag = (ICANON | ECHO | ISIG);
 	if (tcsetattr(0, 0, term) == -1)
 		return ;
 }
 
-void 		termcaps_exit(const char *exit_msg, struct termios *term)
+void		termcaps_exit(const char *exit_msg, struct termios *term)
 {
 	ft_putchar('\n');
 	if (exit_msg)
 		ft_putendl(exit_msg);
 	bring_back_shell(term);
-	exit (-1);
+	exit(-1);
 }
 
-void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
+void		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 {
 	char				*name_term;
 
@@ -42,7 +42,7 @@ void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 	if (tcgetattr(0, term) == -1)
 		return ;
 	ft_bzero(data->buffer, 4);
-	term->c_lflag &= ~(ICANON|ECHO|ISIG);
+	term->c_lflag &= ~(ICANON | ECHO | ISIG);
 	term->c_cc[VMIN] = 1;
 	term->c_cc[VTIME] = 0;
 	data->lenght = tgetnum("li");
@@ -55,14 +55,14 @@ void 		init_term(struct termios *term, t_llist *e, t_window *data, int len)
 		return ;
 }
 
-int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win)
+int			termcaps(t_llist *env, char **line, int lenght, t_window *win)
 {
 	struct termios		term;
 	int					code;
 	int					code_to_return;
 
 	code_to_return = 0;
-	init_term(&term, env, win, lenght_prompt);
+	init_term(&term, env, win, lenght);
 	while (win->buffer[0] != RETURN)
 	{
 		ft_bzero(win->buffer, 4);
