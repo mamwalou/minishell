@@ -6,7 +6,7 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 13:23:28 by sbeline           #+#    #+#             */
-/*   Updated: 2016/10/11 16:42:32 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/11 17:16:59 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			export_var(t_llist **env, char *var)
 	return (0);
 }
 
-int			export_var0(t_llist **env, char *var, char **option)
+int			export_var0(t_llist **env, char *var, char **option, int index)
 {
 	char	**var_memo;
 	t_llist	*ptr;
@@ -48,16 +48,16 @@ int			export_var0(t_llist **env, char *var, char **option)
 
 	i = 0;
 	ft_strsplit(&var_memo, var, generate(59, 0, 2));
-	while (option[i])
+	while (i < index)
 	{
 		y = 0;
 		while (var_memo[y])
 		{
-			if (!ft_strcmp(option[i], var_memo[y]))
-				ft_putendl("in");
+			if (!ft_strncmp(option[i], var_memo[y], ft_strlen(option[i])))
+				return (export_var(env, var_memo[y]));
 			y++;
 		}
 		i++;
 	}
-	return (0);
+	return (ER_PREMMR);
 }
