@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 14:29:50 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/11 16:38:32 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,17 @@
 # include "../libft/Includes/libft.h"
 # include "termcaps/termcaps.h"
 # include <unistd.h>
-# define NB_BUILT 5
+
+# define NB_BUILT 6
+
+# define ER_CMDNF -1
+# define ER_MMR 32
+# define ER_PREMMR 33
+# define ER_PATHNF 2
+# define ER_CDPWDNF 43
+# define ER_USEVR 45
+# define ER_NTFORD 66
+# define ER_EXIT 42
 
 typedef struct				s_data
 {
@@ -31,6 +41,7 @@ typedef struct				s_data
 typedef struct				s_memory
 {
 	char					*var;
+	char					*home;
 }							t_memory;
 
 typedef struct				s_built
@@ -51,9 +62,11 @@ int			ft_cd(t_data *data, t_llist *env, t_memory *memory);
 int			ft_env(t_data *data, t_llist *env, t_memory *memory);
 int			ft_unsetenv(t_data *data, t_llist *env, t_memory *memory);
 int			ft_setenv(t_data *data, t_llist *env, t_memory *memory);
+int			ft_toexport(t_data *data, t_llist *env, t_memory *memory);
 int			my_setenv(t_llist **env,char **environ, const char *value);
 char		**my_env(t_llist *env);
-void 		export_var(t_llist **env, char *var);
+int 		export_var(t_llist **env, char *var);
+int			export_var0(t_llist **env, char *var, char **option);
 int			unenv(char *unset, t_llist *env);
 
 					/*exect_it*/
@@ -75,7 +88,6 @@ int			operator_filters(char *line);
 
 					/*memory*/
 int			define_variable(t_memory *memory, char *line);
-void		init_memory(t_memory *memory);
 
 int			*generate(int c, int c1, int size);
 #endif

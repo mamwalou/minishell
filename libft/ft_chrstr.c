@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_chrstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 12:15:28 by sbeline           #+#    #+#             */
-/*   Updated: 2016/10/11 15:13:13 by sbeline          ###   ########.fr       */
+/*   Created: 2016/10/11 10:37:55 by sbeline           #+#    #+#             */
+/*   Updated: 2016/10/11 10:45:32 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+char		*ft_chrstr(char *str, char *find)
 {
-	size_t i;
-
-	i = 0;
-	while (i < n)
+	while (*str && *find && *find == *str)
 	{
-		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		if (*s1 == '\0' && *s2 == '\0')
-			return (0);
-		s1++;
-		s2++;
-		i++;
+		find++;
+		str++;
 	}
-	return (0);
+	return ((char*)str);
 }

@@ -15,6 +15,7 @@ SRC_NAME = main.c \
 			search.c \
 			auto_compl.c \
 			move_cursr.c \
+			export_var.c \
 			parser.c
 
 INC_PATH = ./includes/

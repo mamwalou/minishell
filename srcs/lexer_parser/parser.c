@@ -39,11 +39,15 @@ int			parser_data(t_llist *env, char **line, t_data **data, t_memory **me)
 {
 	while (*line)
 	{
-		if (*data != NULL)
-			((*data)->option) = init_option(*line, (*data)->option);
-		if (*data == NULL && ctrl_var(*line))
+		if (ctrl_var(*line))
 		{
-			*data = init_data(env, *line);
+			if (*data == NULL)
+				*data = init_data(env, *line);
+			else
+			{
+				(*data)->index += 1;
+				(*data)->option = init_option(*line, (*data)->option);
+			}
 			if (!(*data)->cmd)
 				return (-1);
 		}

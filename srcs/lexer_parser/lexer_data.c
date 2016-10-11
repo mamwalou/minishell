@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 14:27:36 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/11 16:39:34 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char		*is_bulltin(char *cmd)
 		|| ft_strcmp(cmd, "unset") == 0
 		|| ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "exit") == 0
+		|| ft_strcmp(cmd, "toexport") == 0
 		|| ft_strcmp(cmd, "var") == 0)
 		return (cmd);
 	return (NULL);

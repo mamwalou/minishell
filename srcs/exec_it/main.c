@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:41:24 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 14:17:43 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/11 12:05:53 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int					main(int argc, char **argv, char **environ)
 
 	ctrl = 0;
 	env = NULL;
-	init_memory(&memory);
 	win.set = 0;
+	memory.var = NULL;
 	while (ctrl == 0)
 	{
 		my_setenv(&env, environ, NULL);

@@ -53,6 +53,8 @@ static int			revers_cd(t_llist *env, char *newold)
 	unenv("PWD=", env);
 	unenv("OLDPWD=", env);
 	export_var(&env, ft_strjoin("PWD=", cpy));
+	ft_putendl(ft_strjoin("~", ft_chrstr(search_env(env, "PWD="),
+				search_env(env, "HOME="))));
 	export_var(&env, ft_strjoin("OLDPWD=", newold));
 	return (0);
 }

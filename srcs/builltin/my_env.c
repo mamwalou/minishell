@@ -48,3 +48,12 @@ int				ft_env(t_data *data, t_llist *env, t_memory *memory)
 	}
 	return (0);
 }
+
+int			ft_toexport(t_data *data, t_llist *env, t_memory *memory)
+{
+	if (memory->var)
+		ft_putendl(memory->var);
+	else
+		ft_putendl("no variable set");
+	return (0);
+}

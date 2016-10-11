@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 14:26:54 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/11 16:23:08 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static const t_built	g_builtin[NB_BUILT] =
 	{"cd", ft_cd},
 	{"env", ft_env},
 	{"export", ft_setenv},
+	{"toexport", ft_toexport},
 	{"unset", ft_unsetenv},
 	{"var", ft_variable},
 };

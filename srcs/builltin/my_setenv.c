@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 15:04:36 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/11 16:43:04 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,16 @@ int				my_setenv(t_llist **env, char **environ, const char *value)
 	return (-1);
 }
 
-void			export_var(t_llist **env, char *var)
-{
-	char		*tmp;
-	char		*ptr;
-	int			i;
-
-	i = 0;
-	ptr = var;
-	while (var[i])
-		i++;
-	while ((ptr = ft_strrchr(var, ';')) != NULL)
-	{
-		ft_lstadd(env, ft_lstnew(var, ptr - var - 1));
-		var = ptr;
-	}
-	if (ptr == NULL)
-		ft_lstadd(env, ft_lstnew(var, &var[i] - var));
-}
 
 int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
 {
 	t_llist *ptr;
 
 	ptr = env;
-	if (memory->var)
-		export_var(&env, memory->var);
+	if (memory->var && data->index == 0)
+		return (export_var(&env, memory->var));
+	else if (memory->var && data->option > 1)
+		return (export_var0(&env, memory->var, data->option));
 	else
 		return (32);
 	return (0);

@@ -19,8 +19,3 @@ int			ft_variable(t_data *data, t_llist *env, t_memory *memory)
 	ft_putendl(memory->var);
 	return (0);
 }
-
-void		init_memory(t_memory *memory)
-{
-	memory->var = NULL;
-}

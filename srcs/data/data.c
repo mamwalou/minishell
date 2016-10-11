@@ -51,6 +51,7 @@ t_data				*init_data(t_llist *env, char *line)
 	if ((data->cmd = bin_checkout(line, env)) != NULL)
 	{
 		data->option = init_option(data->cmd, data->option);
+		data->index = 0;
 		return (data);
 	}
 	return (data);
