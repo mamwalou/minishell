@@ -74,12 +74,12 @@ int						exec_cmd(t_memory *memory, t_llist *env, char *line)
 		if (error < 0)
 		{
 			ft_putstr(line);
-			manage_error(error, data, env);
+			manage_error(error, data, env, memory);
 		}
 		else if (error < 5)
 		{
 			if ((error = exec_parser(data, env, memory)) != 0)
-				return (manage_error(error, data, env));
+				return (manage_error(error, data, env, memory));
 		}
 	}
 	free_d(pline, lenght);

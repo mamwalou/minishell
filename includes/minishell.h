@@ -54,7 +54,7 @@ int			prompt(t_llist *env);
 
 					/*EROOR*/
 void		ft_print_error(char *error, const char *str);
-int			manage_error(int code_err, t_data *data, t_llist *env);
+int			manage_error(int cod, t_data *data, t_llist *env, t_memory *me);
 
 					/*builltin*/
 int			ft_variable(t_data *data, t_llist *env, t_memory *memory);
@@ -66,7 +66,7 @@ int			ft_toexport(t_data *data, t_llist *env, t_memory *memory);
 int			my_setenv(t_llist **env,char **environ, const char *value);
 char		**my_env(t_llist *env);
 int 		export_var(t_llist **env, char *var);
-int			export_var0(t_llist **env, char *var, char **option);
+int			export_var0(t_llist **env, char *var, char **option, int index);
 int			unenv(char *unset, t_llist *env);
 
 					/*exect_it*/

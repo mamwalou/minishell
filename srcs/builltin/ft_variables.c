@@ -2,7 +2,7 @@
 
 int				ft_variable(t_data *data, t_llist *env, t_memory *memory)
 {
-	if (memory->VAR)
-		ft_putendl(memory->VAR);
+	if (memory->var)
+		ft_putendl(memory->var);
 	return (0);
 }
