@@ -12,10 +12,28 @@
 
 #include "../../includes/minishell.h"
 
+int			overlaps_env(t_llist **env, char *var_memo)
+{
+	t_llist *ptr;
+
+	ptr = *env;
+	while (ptr)
+	{
+		if (!ft_strcmp(ptr->content, var_memo))
+			return (ER_PREMMR);
+		else if (!ft_strncmp(ptr->content, var_memo, ft_strchr(var_memo, '=')))
+		{
+			free(ptr->content);
+			ptr->content = ft_strdup(var_memo);
+			return (SUCCESS);
+		}
+		ptr = ptr->next;
+	}
+}
+
 int			export_var(t_llist **env, char *var)
 {
 	char		**var_memo;
-	char		*tmp;
 	t_llist		*ptr;
 	int			i;
 	int			len;
@@ -53,11 +71,18 @@ int			export_var0(t_llist **env, char *var, char **option, int index)
 		y = 0;
 		while (var_memo[y])
 		{
-			if (!ft_strncmp(option[i], var_memo[y], ft_strlen(option[i])))
-				return (export_var(env, var_memo[y]));
+			ft_putendl(var_memo[y]);
+			if (!ft_strncmp(option[i], var_memo[y], ft_strchr(var_memo[y], '=') - 1))
+			{
+				if (!ft_strcmp(option[i], var_memo[y]))
+					return (ER_PREMMR);
+				else
+					if ((overlaps_env(env, var_memo[y])) == ER_PREMMR);
+						return (ER_PREMMR);
+			}
 			y++;
 		}
 		i++;
 	}
-	return (ER_PREMMR);
+	return (0);
 }

@@ -20,6 +20,8 @@ static const t_built	g_builtin[NB_BUILT] =
 	{"toexport", ft_toexport},
 	{"unset", ft_unsetenv},
 	{"var", ft_variable},
+	{"echo", ft_echo},
+
 };
 
 void					exect_it(t_data *data, t_llist *env)

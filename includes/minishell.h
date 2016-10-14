@@ -19,6 +19,7 @@
 
 # define NB_BUILT 6
 
+# define SUCCESS 0
 # define ER_CMDNF -1
 # define ER_MMR 32
 # define ER_PREMMR 33
@@ -57,6 +58,7 @@ void		ft_print_error(char *error, const char *str);
 int			manage_error(int cod, t_data *data, t_llist *env, t_memory *me);
 
 					/*builltin*/
+int			ft_echo(t_data *data, t_llist *env, t_memory *memory);
 int			ft_variable(t_data *data, t_llist *env, t_memory *memory);
 int			ft_cd(t_data *data, t_llist *env, t_memory *memory);
 int			ft_env(t_data *data, t_llist *env, t_memory *memory);
