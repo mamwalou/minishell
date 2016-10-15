@@ -7,6 +7,7 @@ SRC_NAME = main.c \
 			data.c \
 			parsing_line.c \
 			ft_cd.c \
+			ft_echo.c \
 			ft_variables.c \
 			termcaps_checker.c \
 			termcaps.c \

@@ -35,25 +35,28 @@ void		free_d(char **dtab, int lenght)
 		free(dtab);
 }
 
+
 int			parser_data(t_llist *env, char **line, t_data **data, t_memory **me)
 {
-	while (*line)
+	(*me)->pos = 0;
+	while (line[(*me)->pos])
 	{
-		if (ctrl_var(*line))
+		if (ctrl_var(line[(*me)->pos]))
 		{
 			if (*data == NULL)
-				*data = init_data(env, *line);
+				*data = init_data(env, line[(*me)->pos]);
 			else
 			{
 				(*data)->index += 1;
-				(*data)->option = init_option(*line, (*data)->option);
+				option_ctrl(*data, *me, &line[(*me)->pos]);
 			}
 			if (!(*data)->cmd)
 				return (-1);
 		}
-		if (!ctrl_var(*line))
-			return (define_variable(*me, *line));
-		line++;
+		if (!ctrl_var(line[(*me)->pos]))
+			return (define_variable(*me, line[(*me)->pos]));
+		(*me)->pos++;
+
 	}
 	return (0);
 }

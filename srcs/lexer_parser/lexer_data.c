@@ -57,6 +57,7 @@ int			my_ctrl(int test)
 		|| test == '='
 		|| test == '/'
 		|| test == '.'
+		|| test == '"'
 		|| test == '!')
 		return (1);
 	return (0);
@@ -70,6 +71,7 @@ char		*is_bulltin(char *cmd)
 		|| ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "exit") == 0
 		|| ft_strcmp(cmd, "toexport") == 0
+		|| ft_strcmp(cmd, "echo") == 0
 		|| ft_strcmp(cmd, "var") == 0)
 		return (cmd);
 	return (NULL);

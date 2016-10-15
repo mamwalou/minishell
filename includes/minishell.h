@@ -17,7 +17,7 @@
 # include "termcaps/termcaps.h"
 # include <unistd.h>
 
-# define NB_BUILT 6
+# define NB_BUILT 7
 
 # define SUCCESS 0
 # define ER_CMDNF -1
@@ -43,6 +43,9 @@ typedef struct				s_memory
 {
 	char					*var;
 	char					*home;
+	char					*line;
+	int						ll;
+	int						pos;
 }							t_memory;
 
 typedef struct				s_built
@@ -72,7 +75,7 @@ int			export_var0(t_llist **env, char *var, char **option, int index);
 int			unenv(char *unset, t_llist *env);
 
 					/*exect_it*/
-int			exec_cmd(t_memory *memory,t_llist *env, char *line);
+int			exec_cmd(t_memory *memo, t_llist *env);
 
 					/*parser*/
 int			parser_data(t_llist *env, char **line, t_data **data, t_memory **memory);
@@ -80,6 +83,8 @@ t_data		*init_data(t_llist *env, char *line);
 char		*search_env(t_llist *env, const char *value);
 void 		free_d(char **dtab, int lenght);
 char		**init_option(char *opt, char **save);
+int			option_ctrl(t_data *data, t_memory *memory, char **line)
+
 
 					/*lexer*/
 int			ctrl_var(char *line);

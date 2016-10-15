@@ -59,31 +59,30 @@ int						exec_parser(t_data *data, t_llist *env, t_memory *mem)
 	return (0);
 }
 
-int						exec_cmd(t_memory *memory, t_llist *env, char *line)
+int						exec_cmd(t_memory *memo, t_llist *env)
 {
 	t_data				*data;
 	char				**pline;
-	int					lenght;
 	int					error;
 
 	error = 0;
 	data = NULL;
-	if ((lenght = ft_strsplit(&pline, line, generate(9, 32, 3))) == -1)
+	if ((memo->ll = ft_strsplit(&pline, memo->line, generate(9, 32, 3))) == -1)
 		return (0);
-	if (lenght > 0)
+	if (memo->ll > 0)
 	{
-		error = parser_data(env, pline, &data, &memory);
+		error = parser_data(env, pline, &data, &memo);
 		if (error < 0)
 		{
-			ft_putstr(line);
-			manage_error(error, data, env, memory);
+			ft_putstr(memo->line);
+			manage_error(error, data, env, memo);
 		}
 		else if (error < 5)
 		{
-			if ((error = exec_parser(data, env, memory)) != 0)
-				return (manage_error(error, data, env, memory));
+			if ((error = exec_parser(data, env, memo)) != 0)
+				return (manage_error(error, data, env, memo));
 		}
 	}
-	free_d(pline, lenght);
+	free_d(pline, memo->ll);
 	return (0);
 }

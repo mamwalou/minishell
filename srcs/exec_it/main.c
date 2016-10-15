@@ -40,7 +40,6 @@ int					main(int argc, char **argv, char **environ)
 	t_memory		memory;
 	t_llist			*env;
 	t_window		win;
-	char			*line;
 	int				ctrl;
 
 	ctrl = 0;
@@ -50,13 +49,13 @@ int					main(int argc, char **argv, char **environ)
 	while (ctrl == 0)
 	{
 		my_setenv(&env, environ, NULL);
-		line = NULL;
-		if ((termcaps(env, &line, prompt(env), &win)) == -1)
+		memory.line = NULL;
+		if ((termcaps(env, &memory.line, prompt(env), &win)) == -1)
 			return (-1);
 		ft_putchar('\n');
-		if (line)
-			ctrl = exec_cmd(&memory, env, line);
-		free(line);
+		if (memory.line)
+			ctrl = exec_cmd(&memory, env);
+		free(memory.line);
 	}
 	ft_lstdel(&env, ft_bzero);
 	return (0);
