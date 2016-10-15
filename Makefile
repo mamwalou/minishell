@@ -16,6 +16,7 @@ SRC_NAME = main.c \
 			memory.c \
 			search.c \
 			auto_compl.c \
+			option_parser.c \
 			move_cursr.c \
 			export_var.c \
 			parser.c

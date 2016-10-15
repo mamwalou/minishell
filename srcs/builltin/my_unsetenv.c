@@ -28,6 +28,6 @@ int				unenv(char *unset, t_llist *env)
 int				ft_unsetenv(t_data *data, t_llist *env, t_memory *memory)
 {
 	if (data->option != NULL)
-		return (unenv(data->option[0], env));
+		return (unenv(data->option[1], env));
 	return (45);
 }

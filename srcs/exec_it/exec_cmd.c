@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 03:13:02 by salomon           #+#    #+#             */
-/*   Updated: 2016/10/11 16:23:08 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/15 23:41:43 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int						exec_cmd(t_memory *memo, t_llist *env)
 	int					error;
 
 	error = 0;
-	data = NULL;
+	data = build_data();
 	if ((memo->ll = ft_strsplit(&pline, memo->line, generate(9, 32, 3))) == -1)
 		return (0);
 	if (memo->ll > 0)

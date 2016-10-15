@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/14 02:42:49 by salomon           #+#    #+#             */
-/*   Updated: 2016/10/11 16:38:32 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/15 23:41:43 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define ER_USEVR 45
 # define ER_NTFORD 66
 # define ER_EXIT 42
+# define OPEN_QUOTE_MODE 2
+# define QUOTE_OPT 66
 
 typedef struct				s_data
 {
@@ -44,6 +46,8 @@ typedef struct				s_memory
 	char					*var;
 	char					*home;
 	char					*line;
+	char					*mode_quote;
+	int						*type_quote;
 	int						ll;
 	int						pos;
 }							t_memory;
@@ -79,11 +83,12 @@ int			exec_cmd(t_memory *memo, t_llist *env);
 
 					/*parser*/
 int			parser_data(t_llist *env, char **line, t_data **data, t_memory **memory);
-t_data		*init_data(t_llist *env, char *line);
 char		*search_env(t_llist *env, const char *value);
 void 		free_d(char **dtab, int lenght);
 char		**init_option(char *opt, char **save);
-int			option_ctrl(t_data *data, t_memory *memory, char **line)
+int			option_ctrl(t_data *data, t_memory *memory, char **line);
+void		init_data(char *line, t_memory *memory, t_data **data)
+t_data		*build_data();
 
 
 					/*lexer*/
@@ -95,6 +100,5 @@ int			operator_filters(char *line);
 
 					/*memory*/
 int			define_variable(t_memory *memory, char *line);
-
 int			*generate(int c, int c1, int size);
 #endif

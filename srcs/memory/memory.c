@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/10/15 15:46:42 by sbeline           #+#    #+#             */
+/*   Updated: 2016/10/15 16:41:48 by sbeline          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char 		*rewirte(char **array, char *line, int pos, int len)
@@ -10,10 +22,12 @@ char 		*rewirte(char **array, char *line, int pos, int len)
 	while (i < len)
 	{
 		if (i != pos)
+		{
 			if (ret)
 				ret = ft_strtrijoin(array[i], ";", ret);
 			else
 				ret = ft_strdup(array[i]);
+		}
 		i++;
 	}
 	if (ret)
