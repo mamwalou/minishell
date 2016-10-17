@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 22:16:18 by salomon           #+#    #+#             */
-/*   Updated: 2016/09/08 15:04:38 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/17 15:15:01 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ typedef struct	s_terminal
 	int			input;
 	int			(*f)(t_window *, t_llist *, char *);
 }				t_terminal;
-int			termcaps(t_llist *env, char **line, int lenght_prompt, t_window *win);
+
+int				termcaps(t_llist *env, char **line, int lenght_prompt,
+						t_window *win);
 
 int				init_varfcurs();
 

@@ -23,7 +23,7 @@ int			*generate(int c, int c1, int size)
 
 void		free_d(char **dtab, int lenght)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < lenght)
@@ -35,7 +35,6 @@ void		free_d(char **dtab, int lenght)
 		free(dtab);
 }
 
-
 int			parser_data(t_llist *env, char **line, t_data **data, t_memory **me)
 {
 	while (*line)
@@ -43,7 +42,7 @@ int			parser_data(t_llist *env, char **line, t_data **data, t_memory **me)
 		if (ctrl_var(*line))
 		{
 			if (((*data)->cmd) == NULL)
-				init_data(env, *line, *me, data);
+				init_data(env, *line, data);
 			else
 			{
 				(*data)->index += 1;

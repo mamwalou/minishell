@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/05 00:48:03 by salomon           #+#    #+#             */
-/*   Updated: 2016/10/11 16:57:23 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/17 15:08:29 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int			my_ctrl(int test)
 		|| test == '/'
 		|| test == '.'
 		|| test == '"'
+		|| test == 39
 		|| test == '!')
 		return (1);
 	return (0);
@@ -71,7 +72,6 @@ char		*is_bulltin(char *cmd)
 		|| ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "exit") == 0
 		|| ft_strcmp(cmd, "toexport") == 0
-		|| ft_strcmp(cmd, "echo") == 0
 		|| ft_strcmp(cmd, "var") == 0)
 		return (cmd);
 	return (NULL);

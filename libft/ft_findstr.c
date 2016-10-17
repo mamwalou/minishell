@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_findstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salomon <salomon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 16:29:00 by sbeline           #+#    #+#             */
-/*   Updated: 2016/05/15 06:51:16 by salomon          ###   ########.fr       */
+/*   Updated: 2016/10/17 14:24:47 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int		ft_findstr(char *s1, char *s2)
 	}
 	if (!*s2)
 		return (1);
-	return(0);
+	return (0);
 }

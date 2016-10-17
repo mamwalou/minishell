@@ -6,13 +6,13 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/15 16:05:08 by sbeline           #+#    #+#             */
-/*   Updated: 2016/10/15 23:41:44 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/17 14:14:07 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int 		dup_option(t_data *data, char **line, int pos, int nb_car)
+int			dup_option(t_data *data, char **line, int pos, int nb_car)
 {
 	char	*new_opt;
 	int		i;
@@ -28,10 +28,7 @@ int 		dup_option(t_data *data, char **line, int pos, int nb_car)
 		while (line[i][y])
 		{
 			if (line[i][y] != 39 && line[i][y] != 34)
-			{
-				new_opt[h] = line[i][y];
-				h++;
-			}
+				new_opt[h++] = line[i][y];
 			y++;
 		}
 		if (i != pos)
@@ -44,9 +41,9 @@ int 		dup_option(t_data *data, char **line, int pos, int nb_car)
 	return (QUOTE_OPT);
 }
 
-int			open_quote_mode()
+int			open_quote_mode(void)
 {
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
 int			option_ctrl(t_data *data, t_memory *memory, char **line)

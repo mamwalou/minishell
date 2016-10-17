@@ -38,7 +38,7 @@ char			**my_env(t_llist *env)
 
 int				ft_env(t_data *data, t_llist *env, t_memory *memory)
 {
-	t_llist *ptr;
+	t_llist		*ptr;
 
 	ptr = env;
 	while (ptr)
@@ -49,7 +49,7 @@ int				ft_env(t_data *data, t_llist *env, t_memory *memory)
 	return (0);
 }
 
-int			ft_toexport(t_data *data, t_llist *env, t_memory *memory)
+int				ft_toexport(t_data *data, t_llist *env, t_memory *memory)
 {
 	if (memory->var)
 		ft_putendl(memory->var);

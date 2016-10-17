@@ -6,7 +6,7 @@
 /*   By: salomon  <salomon @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/15 00:45:13 by salomon           #+#    #+#             */
-/*   Updated: 2016/10/15 17:23:19 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/17 13:54:43 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ int				my_setenv(t_llist **env, char **environ, const char *value)
 	return (-1);
 }
 
-
 int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
 {
-	t_llist *ptr;
+	t_llist		*ptr;
 
 	ptr = env;
 	if (memory->var && data->index == 1)

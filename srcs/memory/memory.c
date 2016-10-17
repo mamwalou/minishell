@@ -6,13 +6,13 @@
 /*   By: sbeline  <sbeline @student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/15 15:46:42 by sbeline           #+#    #+#             */
-/*   Updated: 2016/10/15 16:41:48 by sbeline          ###   ########.fr       */
+/*   Updated: 2016/10/17 15:08:28 by sbeline          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char 		*rewirte(char **array, char *line, int pos, int len)
+char		*rewirte(char **array, char *line, int pos, int len)
 {
 	char	*ret;
 	int		i;
@@ -37,14 +37,14 @@ char 		*rewirte(char **array, char *line, int pos, int len)
 	return (ret);
 }
 
-int 		overlaps(t_memory *memory, char **array, char *line, int len)
+int			overlaps(t_memory *memory, char **array, char *line, int len)
 {
 	int		pos;
 	int		count;
 
 	count = 0;
 	pos = ft_strchr(line, '=');
-	while(array[count])
+	while (array[count])
 	{
 		if (!ft_strncmp(array[count], line, pos))
 			if (ft_strcmp(array[count], line))

@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void		ft_print_error(char *error, const char *str)
+void			ft_print_error(char *error, const char *str)
 {
 	ft_putstr(error);
 	ft_putendl(str);
