@@ -19,6 +19,11 @@ int					prompt(t_llist *env)
 	int				lenght_prompt;
 
 	lenght_prompt = 0;
+	if (env == NULL)
+	{
+		ft_putstr("$>");
+		return (2);
+	}
 	if ((search_env(env, "USER=")))
 	{
 		ft_putstr(ft_strjoin("\033[1;31m", search_env(env, "USER=")));
@@ -43,12 +48,12 @@ int					main(int argc, char **argv, char **environ)
 	int				ctrl;
 
 	ctrl = 0;
-	env = NULL;
 	win.set = 0;
 	memory.var = NULL;
+	env = NULL;
+	my_setenv(&env, environ, NULL);
 	while (ctrl == 0)
 	{
-		my_setenv(&env, environ, NULL);
 		memory.line = NULL;
 		if ((termcaps(env, &memory, prompt(env), &win)) == -1)
 			return (-1);
@@ -57,6 +62,6 @@ int					main(int argc, char **argv, char **environ)
 			ctrl = exec_cmd(&memory, env);
 		free(memory.line);
 	}
-	ft_lstdel(&env, ft_bzero);
+
 	return (0);
 }

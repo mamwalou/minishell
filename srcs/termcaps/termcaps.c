@@ -36,7 +36,7 @@ void		init_term(struct termios *term, t_llist *e, t_win *data, int len)
 	char				*name_term;
 
 	if ((name_term = search_env(e, "TERM=")) == NULL)
-		return ;
+		name_term = ft_strdup("xterm-256color");
 	if (tgetent(NULL, name_term) == ERR)
 		return ;
 	if (tcgetattr(0, term) == -1)

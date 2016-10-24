@@ -27,24 +27,11 @@ t_llist			*build_env(char **environ)
 
 int				my_setenv(t_llist **env, char **environ, const char *value)
 {
-	char		*buf;
-
-	buf = ft_memalloc(UCHAR_MAX);
-	getcwd(buf, UCHAR_MAX);
-	if (!value && !*env)
+	if (environ)
 	{
 		*env = build_env(environ);
 		return (1);
 	}
-	if ((search_env(*env, "PWD=")) == NULL)
-	{
-		ft_lstadd(env, ft_lstnew(ft_strjoin("PWD=", buf),
-					ft_strlen(ft_strjoin("PWD=", buf))));
-	}
-	if (!value && *env)
-		return (ER_NOVSET);
-	else
-		ft_lstadd(env, ft_lstnew(value, ft_strlen(value)));
 	return (-1);
 }
 

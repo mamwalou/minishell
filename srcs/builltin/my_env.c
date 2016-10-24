@@ -15,9 +15,9 @@
 char			*search_env(t_llist *env, const char *value)
 {
 	t_llist		*ptr;
-
 	ptr = env;
-	while (ptr)
+
+	while (ptr != NULL)
 	{
 		if ((ft_findstr(ptr->content, (char*)value)) == 1)
 			return (ptr->content + ft_strchr(ptr->content, '='));
@@ -53,9 +53,14 @@ int				ft_env(t_data *data, t_llist *env, t_memory *memory)
 	t_llist		*ptr;
 
 	ptr = env;
-	if (!ft_strcmp(data->option[1], "-i"))
+	if (data->option[1] && !ft_strcmp(data->option[1], "-i"))
 	{
+		printf("%s,%p\n", env, env);
 		ft_lstdel(&env, ft_bzero);
+		printf("%s,%p\n", env, env);
+		free(env);
+		env = NULL;
+		printf("%s,%p\n", env, env);
 		return (0);
 	}
 	while (ptr)
