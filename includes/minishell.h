@@ -63,9 +63,9 @@ typedef struct		s_built
 }					t_built;
 
 int					prompt(t_llist *env);
-
+t_llist				*build_env(char **environ);
 void				ft_print_error(char *error, const char *str);
-int					manage_error(int cod, t_data *data, t_llist *env,
+int					manage_error(int cod, t_data *data, t_llist **env,
 								t_memory *me);
 int					ft_echo(t_data *data, t_llist *env, t_memory *memory);
 int					ft_variable(t_data *data, t_llist *env, t_memory *memory);
@@ -74,14 +74,15 @@ int					ft_env(t_data *data, t_llist *env, t_memory *memory);
 int					ft_unsetenv(t_data *data, t_llist *env, t_memory *memory);
 int					ft_setenv(t_data *data, t_llist *env, t_memory *memory);
 int					ft_toexport(t_data *data, t_llist *env, t_memory *memory);
-int					my_setenv(t_llist **env, char **environ, const char *value);
+t_llist				*my_setenv();
 char				**my_env(t_llist *env);
 int					export_var(t_llist **env, char *var);
 int					export_var0(t_llist **env, char *var, char **option,
 								int index);
 int					unenv(char *unset, t_llist *env);
 
-int					exec_cmd(t_memory *memo, t_llist *env);
+int					exec_cmd(t_memory *memo, t_llist **env);
+int					count_env(t_llist *env);
 
 int					parser_data(t_llist *env, char **line, t_data **data,
 						t_memory **memory);
