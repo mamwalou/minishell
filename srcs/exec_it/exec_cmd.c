@@ -51,8 +51,7 @@ int						exec_parser(t_data *data, t_llist *env, t_memory *mem)
 			if (!ft_strcmp(g_builtin[i].str, data->cmd))
 			{
 				tmp = g_builtin[i].f(data, env, mem);
-				printf("%s, %p\n", env, env);
-				return(tmp);
+				return (tmp);
 			}
 			i++;
 		}
@@ -64,7 +63,7 @@ int						exec_parser(t_data *data, t_llist *env, t_memory *mem)
 	return (0);
 }
 
-int						exec_cmd(t_memory *memo, t_llist *env)
+int						exec_cmd(t_memory *memo, t_llist **env)
 {
 	t_data				*data;
 	char				**pline;
@@ -77,7 +76,7 @@ int						exec_cmd(t_memory *memo, t_llist *env)
 		return (0);
 	if (memo->ll > 0)
 	{
-		error = parser_data(env, pline, &data, &memo);
+		error = parser_data(*env, pline, &data, &memo);
 		if (error < 0)
 		{
 			ft_putstr(memo->line);
@@ -85,9 +84,8 @@ int						exec_cmd(t_memory *memo, t_llist *env)
 		}
 		else if (error < 5)
 		{
-			if ((error = exec_parser(data, env, memo)) != 0)
+			if ((error = exec_parser(data, *env, memo)) != 0)
 				return (manage_error(error, data, env, memo));
-			printf("%s,%p\n", env, env);
 		}
 	}
 	free_d(pline, memo->ll);

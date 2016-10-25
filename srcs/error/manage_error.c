@@ -12,12 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void			ft_print_error(char *error, const char *str)
-{
-	ft_putstr(error);
-	ft_putendl(str);
-}
-
 static void		error_memory(int cod, t_data *data, t_llist *env, t_memory *me)
 {
 	if (cod == ER_MMR)
@@ -33,11 +27,16 @@ static void		error_memory(int cod, t_data *data, t_llist *env, t_memory *me)
 	}
 	if (cod == ER_USEVR)
 		ft_putendl("Use unset/set 'variable'");
+	if (cod == ER_NTFORD)
+	{
+		ft_putstr("cd: no such file or directory: ");
+		ft_putendl(data->option[1]);
+	}
 }
 
-int				manage_error(int cod, t_data *data, t_llist *env, t_memory *me)
+int				manage_error(int cod, t_data *data, t_llist **env, t_memory *me)
 {
-	error_memory(cod, data, env, me);
+	error_memory(cod, data, *env, me);
 	if (cod == ER_CMDNF)
 		ft_putendl(" :CMD not found");
 	if (cod == ER_PATHNF)
@@ -50,15 +49,12 @@ int				manage_error(int cod, t_data *data, t_llist *env, t_memory *me)
 		ft_putstr("cd: string not in pwd:");
 		ft_putendl(data->option[1]);
 	}
-	if (cod == ER_NTFORD)
-	{
-		ft_putstr("cd: no such file or directory: ");
-		ft_putendl(data->option[1]);
-	}
 	if (cod == ER_EXIT)
 	{
 		ft_putendl("Good bye, have fun");
 		return (-1);
 	}
+	if (cod == -7)
+		return (1);
 	return (0);
 }

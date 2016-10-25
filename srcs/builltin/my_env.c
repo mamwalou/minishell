@@ -12,11 +12,26 @@
 
 #include "../../includes/minishell.h"
 
+int				count_env(t_llist *env)
+{
+	t_llist		*ptr;
+	int			ret;
+
+	ptr = env;
+	ret = 0;
+	while (ptr)
+	{
+		ptr = ptr->next;
+		ret++;
+	}
+	return (ret);
+}
+
 char			*search_env(t_llist *env, const char *value)
 {
 	t_llist		*ptr;
-	ptr = env;
 
+	ptr = env;
 	while (ptr != NULL)
 	{
 		if ((ft_findstr(ptr->content, (char*)value)) == 1)
@@ -55,13 +70,8 @@ int				ft_env(t_data *data, t_llist *env, t_memory *memory)
 	ptr = env;
 	if (data->option[1] && !ft_strcmp(data->option[1], "-i"))
 	{
-		printf("%s,%p\n", env, env);
 		ft_lstdel(&env, ft_bzero);
-		printf("%s,%p\n", env, env);
-		free(env);
-		env = NULL;
-		printf("%s,%p\n", env, env);
-		return (0);
+		return (-7);
 	}
 	while (ptr)
 	{

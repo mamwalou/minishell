@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int			ft_cdoneopt(t_data *data, t_llist *env, char *cpy)
 {
@@ -76,7 +77,6 @@ int					ft_cd(t_data *data, t_llist *env, t_memory *memory)
 	char			*cpy;
 	int				i;
 
-	i = 0;
 	cpy = ft_strdup(search_env(env, "PWD="));
 	if (data->index == 1)
 	{

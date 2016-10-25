@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-t_llist			*build_env(char **environ)
+t_llist				*build_env(char **environ)
 {
-	t_llist		*ret;
+	t_llist			*ret;
 
 	ret = NULL;
 	while (*environ)
@@ -25,19 +25,23 @@ t_llist			*build_env(char **environ)
 	return (ret);
 }
 
-int				my_setenv(t_llist **env, char **environ, const char *value)
+t_llist				*my_setenv(void)
 {
-	if (environ)
-	{
-		*env = build_env(environ);
-		return (1);
-	}
-	return (-1);
+	t_llist			*new_env;
+	char			*buf;
+
+	buf = ft_memalloc(UCHAR_MAX);
+	getcwd(buf, UCHAR_MAX);
+	ft_lstadd(&new_env, ft_lstnew("NO_ENV=null", 11));
+	ft_lstadd(&new_env, ft_lstnew(ft_strjoin("PWD=", buf), ft_strlen(buf) + 4));
+	ft_lstadd(&new_env, ft_lstnew(ft_strjoin("OLDPWD=", buf)
+				, ft_strlen(buf) + 7));
+	return (new_env);
 }
 
-int				ft_setenv(t_data *data, t_llist *env, t_memory *memory)
+int					ft_setenv(t_data *data, t_llist *env, t_memory *memory)
 {
-	t_llist		*ptr;
+	t_llist			*ptr;
 
 	ptr = env;
 	if (memory->var && data->index == 1)

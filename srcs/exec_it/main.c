@@ -50,18 +50,21 @@ int					main(int argc, char **argv, char **environ)
 	ctrl = 0;
 	win.set = 0;
 	memory.var = NULL;
-	env = NULL;
-	my_setenv(&env, environ, NULL);
-	while (ctrl == 0)
+	env = (t_llist*)ft_memalloc(sizeof(t_llist));
+	env = build_env(environ);
+	while (ctrl >= 0)
 	{
+		if (env == NULL)
+			env = my_setenv();
 		memory.line = NULL;
 		if ((termcaps(env, &memory, prompt(env), &win)) == -1)
 			return (-1);
 		ft_putchar('\n');
 		if (memory.line)
-			ctrl = exec_cmd(&memory, env);
+			ctrl = exec_cmd(&memory, &env);
+		if (ctrl == 1)
+			env = NULL;
 		free(memory.line);
 	}
-
 	return (0);
 }
